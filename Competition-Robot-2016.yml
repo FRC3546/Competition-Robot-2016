@@ -867,6 +867,6 @@ Properties:
     validators: null
     value: []
   Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Owner\',
-    extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\Owner\'}
+    extension: null, folder: true, name: Wiring file location, validators: null, value: .\}
 Base: Robot
 Name: Competition-Robot-2016
