@@ -43,5 +43,10 @@ public class Gyro extends Subsystem {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
     }
+
+    public int getRobotAngle() {
+        //TODO: Implement method
+        return 0;
+    }
 }
 
