@@ -471,7 +471,7 @@ Children:
           name: Command
           type: Command
           validators: *id012
-          value: ClimbingArmRotationOut
+          value: ClimbingArmRotateOut
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id013
           default: whileHeld
@@ -500,7 +500,7 @@ Children:
           name: Command
           type: Command
           validators: *id012
-          value: ClimbingArmRotationIn
+          value: ClimbingArmRotateIn
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id013
           default: whileHeld
@@ -724,7 +724,7 @@ Children:
         validators: null
         value: []
     Base: Command
-    Name: ClimbingArmRotationOut
+    Name: ClimbingArmRotateOut
   - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
@@ -742,7 +742,7 @@ Children:
         validators: null
         value: []
     Base: Command
-    Name: ClimbingArmRotationIn
+    Name: ClimbingArmRotateIn
   - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
