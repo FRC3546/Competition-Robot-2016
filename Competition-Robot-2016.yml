@@ -671,10 +671,10 @@ Children:
         validators: null
         value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id016 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id016
+        value: []
     Base: Command
     Name: CimbingWinchLetOut
   - Children: []
@@ -689,10 +689,10 @@ Children:
         validators: null
         value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id017 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id017
+        value: []
     Base: Command
     Name: ClimbingWinchPullIn
   - Children: []
@@ -707,10 +707,10 @@ Children:
         validators: null
         value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id018 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id018
+        value: []
     Base: Command
     Name: ClimbingArmExtend
   - Children: []
@@ -725,10 +725,10 @@ Children:
         validators: null
         value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id019 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id019
+        value: []
     Base: Command
     Name: ClimbingArmRotationOut
   - Children: []
@@ -743,10 +743,10 @@ Children:
         validators: null
         value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id020 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id020
+        value: []
     Base: Command
     Name: ClimbingArmRotationIn
   - Children: []
@@ -761,10 +761,10 @@ Children:
         validators: null
         value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id021 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id021
+        value: []
     Base: Command
     Name: SweeperBarRotationOut
   - Children: []
@@ -779,10 +779,10 @@ Children:
         validators: null
         value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id022 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id022
+        value: []
     Base: Command
     Name: SweeperBarRotationIn
   - Children: []
@@ -797,10 +797,10 @@ Children:
         validators: null
         value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id023 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id023
+        value: []
     Base: Command
     Name: SweeperArmPositionRaise
   - Children: []
@@ -815,10 +815,10 @@ Children:
         validators: null
         value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id024 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id024
+        value: []
     Base: Command
     Name: SweeperArmPositionLower
   - Children: []
@@ -833,18 +833,36 @@ Children:
         validators: null
         value: []
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id025 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id025
+        value: []
     Base: Command
     Name: Autonomous Command
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: None}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id016 []
+        name: Parameter presets
+        validators: null
+        value: *id016
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: Drive
   Properties: {}
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Owner\workspace',
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: ..\}
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: /home/alexandra/workspace,
+    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: /home/alexandra/IdeaProjects}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Java Package: !!robotbuilder.data.properties.StringProperty {default: org.usfirst.frc0000,
@@ -866,7 +884,7 @@ Properties:
     name: Autonomous command parameters
     validators: null
     value: []
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Owner\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /home/alexandra/,
     extension: null, folder: true, name: Wiring file location, validators: null, value: .\}
 Base: Robot
 Name: Competition-Robot-2016
