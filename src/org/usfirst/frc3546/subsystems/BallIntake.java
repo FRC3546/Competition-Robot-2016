@@ -62,14 +62,5 @@ public class BallIntake extends Subsystem {
     public void sweeperBarStop () {
         sweeperBarRotationMotor.set(Relay.Value.kOff);
     }
-
-    public double getArmAngle(){
-        //TODO: Implement method
-        return 0;
-    }
-
-    public void setArmAngle(){
-        //TODO: Implement method
-    }
 }
 
