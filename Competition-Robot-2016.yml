@@ -115,19 +115,13 @@ Children:
       Name: SweeperArmPositionMotor
     - Children: []
       Properties:
-        Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id001
-          default: Talon
-          name: Type
-          validators: null
-          value: TalonSRX
-        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id002
+        Output Channel (Relay): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3']
           default: '0'
-          name: Output Channel (PWM)
-          validators: *id003
-          value: '5'
-      Base: Speed Controller
+          name: Output Channel (Relay)
+          validators: [RelayOutput]
+          value: '0'
+      Base: Spike
       Name: SweeperBarRotationMotor
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
@@ -849,10 +843,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: None}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id016 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id016
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: false}
     Base: Command
@@ -861,8 +855,8 @@ Children:
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: /home/alexandra/workspace,
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: /home/alexandra/IdeaProjects}
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: /home/Andrew/workspace,
+    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: ../}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Java Package: !!robotbuilder.data.properties.StringProperty {default: org.usfirst.frc0000,
@@ -884,7 +878,7 @@ Properties:
     name: Autonomous command parameters
     validators: null
     value: []
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /home/alexandra/,
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /home/Andrew/,
     extension: null, folder: true, name: Wiring file location, validators: null, value: .\}
 Base: Robot
 Name: Competition-Robot-2016

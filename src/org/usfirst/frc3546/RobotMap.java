@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.TalonSRX;
@@ -38,7 +39,7 @@ public class RobotMap {
     public static DoubleSolenoid climbingArmRotatationSolenoid;
     public static AnalogPotentiometer ballIntakeSweeperArmPositionPotentiometer;
     public static SpeedController ballIntakeSweeperArmPositionMotor;
-    public static SpeedController ballIntakeSweeperBarRotationMotor;
+    public static Relay ballIntakeSweeperBarRotationMotor;
     public static Encoder drivetrainRightDrivetrainEncoder;
     public static Encoder drivetrainLeftDrivetrainEncoder;
     public static SpeedController drivetrainBackRightMotor;
@@ -66,8 +67,8 @@ public class RobotMap {
         ballIntakeSweeperArmPositionMotor = new TalonSRX(4);
         LiveWindow.addActuator("BallIntake", "SweeperArmPositionMotor", (TalonSRX) ballIntakeSweeperArmPositionMotor);
         
-        ballIntakeSweeperBarRotationMotor = new TalonSRX(5);
-        LiveWindow.addActuator("BallIntake", "SweeperBarRotationMotor", (TalonSRX) ballIntakeSweeperBarRotationMotor);
+        ballIntakeSweeperBarRotationMotor = new Relay(0);
+        LiveWindow.addActuator("BallIntake", "SweeperBarRotationMotor", ballIntakeSweeperBarRotationMotor);
         
         drivetrainRightDrivetrainEncoder = new Encoder(0, 1, false, EncodingType.k4X);
         LiveWindow.addSensor("Drivetrain", "RightDrivetrainEncoder", drivetrainRightDrivetrainEncoder);
