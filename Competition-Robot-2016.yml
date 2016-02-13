@@ -983,6 +983,6 @@ Properties:
     validators: null
     value: []
   Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /home/alexandra/,
-    extension: null, folder: true, name: Wiring file location, validators: null, value: .\}
+    extension: null, folder: true, name: Wiring file location, validators: null, value: ./}
 Base: Robot
 Name: Competition-Robot-2016
