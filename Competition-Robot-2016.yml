@@ -384,7 +384,7 @@ Children:
           name: Command
           type: Command
           validators: &id012 [TypeDropdownSelected]
-          value: CimbingWinchLetOut
+          value: SweeperBarRotationIn
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id013 [whileHeld, whenPressed, whenReleased]
           default: whileHeld
@@ -397,11 +397,50 @@ Children:
           validators: null
           value: []
       Base: Joystick Button
-      Name: CimbingWinchLetOutButton
+      Name: SweeperBarRotationInButton
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
           name: Joystick, validators: null, value: LeftJoystick}
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id011
+          default: '1'
+          name: Button
+          validators: null
+          value: '2'
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id012
+          value: SweeperBarRotationOut
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id013
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whileHeld
+        Parameters: !!robotbuilder.data.properties.ParametersProperty
+          default: []
+          name: Parameters
+          validators: null
+          value: []
+      Base: Joystick Button
+      Name: SweeperBarRotationOutButton
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: &id014 ['0', '1', '2', '3', '4', '5']
+        default: 1
+        name: Number
+        validators: &id015 [Joystick]
+        value: '0'
+    Base: Joystick
+    Name: LeftJoystick
+  - Children:
+    - Children: []
+      Properties:
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: RightJoystick}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id011
           default: '1'
@@ -430,19 +469,19 @@ Children:
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: LeftJoystick}
+          name: Joystick, validators: null, value: RightJoystick}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id011
           default: '1'
           name: Button
           validators: null
-          value: '1'
+          value: '2'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
           type: Command
           validators: *id012
-          value: ClimbingArmExtend
+          value: SweeperArmPositionLower
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id013
           default: whileHeld
@@ -455,11 +494,11 @@ Children:
           validators: null
           value: []
       Base: Joystick Button
-      Name: ClimbingArmExtendButton
+      Name: SweeperArmPositionLowerButton
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: LeftJoystick}
+          name: Joystick, validators: null, value: RightJoystick}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id011
           default: '1'
@@ -488,7 +527,7 @@ Children:
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: LeftJoystick}
+          name: Joystick, validators: null, value: RightJoystick}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id011
           default: '1'
@@ -517,7 +556,7 @@ Children:
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: LeftJoystick}
+          name: Joystick, validators: null, value: RightJoystick}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id011
           default: '1'
@@ -529,7 +568,7 @@ Children:
           name: Command
           type: Command
           validators: *id012
-          value: SweeperBarRotationOut
+          value: ClimbingArmExtend
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id013
           default: whileHeld
@@ -542,11 +581,11 @@ Children:
           validators: null
           value: []
       Base: Joystick Button
-      Name: SweeperBarRotationOutButton
+      Name: ClimbingArmExtendButton
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: LeftJoystick}
+          name: Joystick, validators: null, value: RightJoystick}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id011
           default: '1'
@@ -558,7 +597,7 @@ Children:
           name: Command
           type: Command
           validators: *id012
-          value: SweeperBarRotationIn
+          value: CimbingWinchLetOut
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id013
           default: whileHeld
@@ -571,17 +610,17 @@ Children:
           validators: null
           value: []
       Base: Joystick Button
-      Name: SweeperBarRotationInButton
+      Name: CimbingWinchLetOutButton
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: LeftJoystick}
+          name: Joystick, validators: null, value: RightJoystick}
         Button: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id011
           default: '1'
           name: Button
           validators: null
-          value: '1'
+          value: '3'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -601,45 +640,6 @@ Children:
           value: []
       Base: Joystick Button
       Name: SweeperArmPositionRaiseButton
-    - Children: []
-      Properties:
-        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
-          name: Joystick, validators: null, value: LeftJoystick}
-        Button: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id011
-          default: '1'
-          name: Button
-          validators: null
-          value: '1'
-        Command: !!robotbuilder.data.properties.TypeSelectionProperty
-          default: None
-          name: Command
-          type: Command
-          validators: *id012
-          value: SweeperArmPositionLower
-        When to Run: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id013
-          default: whileHeld
-          name: When to Run
-          validators: null
-          value: whileHeld
-        Parameters: !!robotbuilder.data.properties.ParametersProperty
-          default: []
-          name: Parameters
-          validators: null
-          value: []
-      Base: Joystick Button
-      Name: SweeperArmPositionLowerButton
-    Properties:
-      Number: !!robotbuilder.data.properties.ChoicesProperty
-        choices: &id014 ['0', '1', '2', '3', '4', '5']
-        default: 1
-        name: Number
-        validators: &id015 [Joystick]
-        value: '0'
-    Base: Joystick
-    Name: LeftJoystick
-  - Children: []
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: *id014
@@ -855,7 +855,7 @@ Children:
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: /home/Andrew/workspace,
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: /home/alexandra/workspace,
     extension: null, folder: true, name: Eclipse Workspace, validators: null, value: ../}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
@@ -878,7 +878,7 @@ Properties:
     name: Autonomous command parameters
     validators: null
     value: []
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /home/Andrew/,
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /home/alexandra/,
     extension: null, folder: true, name: Wiring file location, validators: null, value: .\}
 Base: Robot
 Name: Competition-Robot-2016
