@@ -12,10 +12,8 @@
 package org.usfirst.frc3546.subsystems;
 
 import org.usfirst.frc3546.RobotMap;
-import org.usfirst.frc3546.commands.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.VictorSP;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -40,6 +38,8 @@ public class Climbing extends Subsystem {
 
     public static final double WINCH_SPEED = .3;
     public static final double ARM_SPEED = .3;
+    public static final boolean ARM_UP = false;
+    public static final boolean ARM_DOWN = true;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -52,6 +52,7 @@ public class Climbing extends Subsystem {
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
+        setArmPositionValve(ARM_DOWN);
     }
 
     public void letWinchOut(){
@@ -72,6 +73,28 @@ public class Climbing extends Subsystem {
 
     public void stopArm(){
         climbingArmExtensionMotor.set(0);
+    }
+
+    public void setArmPositionValve(boolean valvePosition){
+        if (valvePosition == ARM_UP){
+            armRotatationSolenoid.set(DoubleSolenoid.Value.kForward);
+        } else {
+            armRotatationSolenoid.set(DoubleSolenoid.Value.kReverse);
+        }
+
+    }
+
+    public boolean setArmPositionValve() {
+        return armRotatationSolenoid.get() == DoubleSolenoid.Value.kForward;
+    }
+
+    public void invertFlagValve() {
+        if (setArmPositionValve() == ARM_UP){
+            setArmPositionValve(ARM_DOWN);
+
+        } else {
+            setArmPositionValve(ARM_UP);
+        }
     }
 }
 
