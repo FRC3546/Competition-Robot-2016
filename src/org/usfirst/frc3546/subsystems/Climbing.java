@@ -97,7 +97,7 @@ public class Climbing extends Subsystem {
         return armRotatationSolenoid.get() == DoubleSolenoid.Value.kForward;
     }
 
-    public void invertFlagValve() {
+    public void invertArmPositionValve() {
         if (getArmPositionValve() == ARM_UP){
             setArmPositionValve(ARM_DOWN);
 
