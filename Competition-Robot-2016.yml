@@ -477,14 +477,14 @@ Children:
           default: whileHeld
           name: When to Run
           validators: null
-          value: whileHeld
+          value: whenPressed
         Parameters: !!robotbuilder.data.properties.ParametersProperty
           default: []
           name: Parameters
           validators: null
           value: []
       Base: Joystick Button
-      Name: ClimbingArmRotationOutButton
+      Name: ClimbingArmRotateOutButton
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
@@ -506,14 +506,14 @@ Children:
           default: whileHeld
           name: When to Run
           validators: null
-          value: whileHeld
+          value: whenPressed
         Parameters: !!robotbuilder.data.properties.ParametersProperty
           default: []
           name: Parameters
           validators: null
           value: []
       Base: Joystick Button
-      Name: ClimbingArmRotationInButton
+      Name: ClimbingArmRotateInButton
     - Children: []
       Properties:
         Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
