@@ -38,6 +38,7 @@ public class RobotMap {
     public static SpeedController climbingClimbingArmExtensionMotor;
     public static SpeedController climbingClimbingWinchMotor;
     public static DoubleSolenoid climbingArmRotatationSolenoid;
+    public static Encoder climbingClimbingArmExtensionEncoder;
     public static AnalogPotentiometer ballIntakeSweeperArmPositionPotentiometer;
     public static SpeedController ballIntakeSweeperArmPositionMotor;
     public static Relay ballIntakeSweeperBarRotationMotor;
@@ -62,6 +63,10 @@ public class RobotMap {
         climbingArmRotatationSolenoid = new DoubleSolenoid(0, 0, 1);
         LiveWindow.addActuator("Climbing", "ArmRotatationSolenoid", climbingArmRotatationSolenoid);
         
+        climbingClimbingArmExtensionEncoder = new Encoder(4, 5, false, EncodingType.k4X);
+        LiveWindow.addSensor("Climbing", "ClimbingArmExtensionEncoder", climbingClimbingArmExtensionEncoder);
+        climbingClimbingArmExtensionEncoder.setDistancePerPulse(1.0);
+        climbingClimbingArmExtensionEncoder.setPIDSourceType(PIDSourceType.kRate);
         ballIntakeSweeperArmPositionPotentiometer = new AnalogPotentiometer(0, 1.0, 0.0);
         LiveWindow.addSensor("BallIntake", "SweeperArmPositionPotentiometer", ballIntakeSweeperArmPositionPotentiometer);
         
