@@ -11,7 +11,7 @@ Children:
           default: Talon
           name: Type
           validators: null
-          value: Talon
+          value: VictorSP
         Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
           choices: &id002 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
             '11', '12', '13', '14', '15', '16', '17', '18', '19']
@@ -28,7 +28,7 @@ Children:
           default: Talon
           name: Type
           validators: null
-          value: VictorSP
+          value: Talon
         Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id002
           default: '0'
@@ -135,19 +135,14 @@ Children:
       Name: SweeperArmPositionPotentiometer
     - Children: []
       Properties:
-        Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id001
-          default: Talon
-          name: Type
-          validators: null
-          value: TalonSRX
-        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id002
-          default: '0'
-          name: Output Channel (PWM)
-          validators: *id003
-          value: '4'
-      Base: Speed Controller
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19', '20']
+          default: '2'
+          name: CAN ID
+          validators: [CANID]
+          value: '0'
+      Base: CAN Talon
       Name: SweeperArmPositionMotor
     - Children: []
       Properties:
@@ -991,7 +986,7 @@ Children:
   Base: Commands
   Name: Commands
 Properties:
-  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: /home/mason/workspace,
+  Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: /home/Andrew/workspace,
     extension: null, folder: true, name: Eclipse Workspace, validators: null, value: ../}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
@@ -1014,7 +1009,7 @@ Properties:
     name: Autonomous command parameters
     validators: null
     value: []
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /home/mason/,
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: /home/Andrew/,
     extension: null, folder: true, name: Wiring file location, validators: null, value: ./}
 Base: Robot
 Name: Competition-Robot-2016
