@@ -50,11 +50,11 @@ public class BallIntake extends Subsystem {
     }
 
     public void sweeperBarIn () {
-        sweeperBarRotationMotor.set(Relay.Value.kForward);
+        sweeperBarRotationMotor.set(Relay.Value.kReverse);
     }
 
     public void sweeperBarOut () {
-        sweeperBarRotationMotor.set(Relay.Value.kReverse);
+        sweeperBarRotationMotor.set(Relay.Value.kForward);
     }
 
     public void sweeperBarStop () {
