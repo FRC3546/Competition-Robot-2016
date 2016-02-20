@@ -88,7 +88,7 @@ public class OI {
         rightJoystick = new Joystick(1);
         
         sweeperArmPositionRaiseButton = new JoystickButton(rightJoystick, 3);
-        sweeperArmPositionRaiseButton.whileHeld(new SweeperArmPositionRaise());
+        sweeperArmPositionRaiseButton.whenPressed(new SweeperArmPositionRaise());
         cimbingWinchLetOutButton = new JoystickButton(rightJoystick, 11);
         cimbingWinchLetOutButton.whileHeld(new CimbingWinchLetOut());
         climbingArmExtendButton = new JoystickButton(rightJoystick, 1);
@@ -96,7 +96,7 @@ public class OI {
         climbingArmRotateToggleButton = new JoystickButton(rightJoystick, 9);
         climbingArmRotateToggleButton.whenPressed(new ClimbingArmRotateToggle());
         sweeperArmPositionLowerButton = new JoystickButton(rightJoystick, 2);
-        sweeperArmPositionLowerButton.whileHeld(new SweeperArmPositionLower());
+        sweeperArmPositionLowerButton.whenPressed(new SweeperArmPositionLower());
         climbingWinchPullInButton = new JoystickButton(rightJoystick, 10);
         climbingWinchPullInButton.whileHeld(new ClimbingWinchPullIn());
         climbingArmRetractButton = new JoystickButton(rightJoystick, 6);
