@@ -40,8 +40,8 @@ public class Climbing extends Subsystem {
     public static final double WINCH_IN_SPEED = .75;
     public static final double WINCH_OUT_SPEED = WINCH_IN_SPEED;
     public static final double SLOW_WINCH_SPEED = .6;
-    public static final double ARM_IN_SPEED = .5;
-    public static final double ARM_OUT_SPEED = ARM_IN_SPEED;
+    public static final double ARM_IN_SPEED = 1.0;
+    public static final double ARM_OUT_SPEED = 1.0;
     public static final DoubleSolenoid.Value ARM_UP = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value ARM_DOWN = DoubleSolenoid.Value.kReverse;
 
