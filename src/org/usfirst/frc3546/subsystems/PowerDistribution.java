@@ -45,5 +45,14 @@ public class PowerDistribution extends Subsystem {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
     }
+
+    public String getWinchCurrentDrawString(){
+        double current1 = powerDistributionPanel.getCurrent(0);
+        double current2 = powerDistributionPanel.getCurrent(15);
+
+        return "Winch Motor 1 is drawing: " + current1
+                + " Amps. Winch Motor 2 is drawing: " + current2
+                + " Amps. This makes a total of " + (current1 + current2) + " Amps.";
+    }
 }
 
