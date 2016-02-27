@@ -51,11 +51,14 @@ public class Drivetrain extends Subsystem {
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
-        setDefaultCommand(new Drive());
+        //setDefaultCommand(new Drive());
     }
 
 
     public void takeInputs(Joystick stick1, Joystick stick2){drivetrainMotors.tankDrive(stick1, stick2);
+    }
+
+    public void takeInputs(double left, double right){drivetrainMotors.tankDrive(left, right);
     }
 
     public void stop() {drivetrainMotors.drive(0, 0);
