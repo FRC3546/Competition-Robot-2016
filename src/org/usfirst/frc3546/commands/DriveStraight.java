@@ -11,17 +11,21 @@ public class DriveStraight extends Command {
     public static final double P_VAL = .01;
 
     private boolean stop_when_level = false;
+    private boolean drive_backwards = false;
 
     /**
      * Construct the command
      * @param timeout The time to drive for. Set to -1 to drive until Robot.gyro.isLevel() is true
+     * @param drive_backwards True if the robot should drive backwards
      */
-    public DriveStraight(double timeout){
+    public DriveStraight(double timeout, boolean drive_backwards){
         if (timeout == -1){
             stop_when_level = true;
         } else {
             this.setTimeout(timeout);
         }
+
+        this.drive_backwards = drive_backwards;
     }
 
     // Called just before this Command runs the first time
@@ -54,7 +58,12 @@ public class DriveStraight extends Command {
             }
         }
 
-        Robot.drivetrain.takeInputs(left_speed, right_speed);
+        if (drive_backwards) {
+            Robot.drivetrain.takeInputs(left_speed, right_speed);
+        } else {
+            Robot.drivetrain.takeInputs(right_speed, left_speed);
+        }
+
     }
 
 
