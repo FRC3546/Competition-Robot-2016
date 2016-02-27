@@ -10,10 +10,23 @@ public class DriveStraight extends Command {
     public static final double DRIVING_SPEED = .4;
     public static final double P_VAL = .01;
 
+    private boolean stop_when_level = false;
+
+    /**
+     * Construct the command
+     * @param timeout The time to drive for. Set to -1 to drive until Robot.gyro.isLevel() is true
+     */
+    public DriveStraight(double timeout){
+        if (timeout == -1){
+            stop_when_level = true;
+        } else {
+            this.setTimeout(timeout);
+        }
+    }
+
     // Called just before this Command runs the first time
     protected void initialize() {
-        //Remove before flight
-        this.setTimeout(5);
+
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -47,6 +60,10 @@ public class DriveStraight extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+        if (stop_when_level) {
+            return Robot.gyro.isLevel();
+        }
+
         return false;
     }
 
