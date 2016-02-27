@@ -132,7 +132,7 @@ public class Gyro extends Subsystem {
      * check that we're over a defense
      * @return True if the robot is level relative to the field. False otherwise
      */
-    public boolean isRobotLevel(){
+    public boolean isLevel(){
         return Math.abs(gyro_board.getPitch()) < LEVEL_TOLERANCE && Math.abs(gyro_board.getRoll()) < LEVEL_TOLERANCE;
     }
 }
