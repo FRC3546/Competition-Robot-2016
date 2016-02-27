@@ -7,25 +7,34 @@ import org.usfirst.frc3546.Robot;
  * Created by Owner on 2/27/2016.
  */
 public class DriveStraight extends Command {
-    public static final double DRIVING_SPEED = .4;
+    public static final double DEFUALT_DRIVING_SPEED = .4;
     public static final double P_VAL = .01;
 
-    private boolean stop_when_level = false;
+    private boolean stop_when_not_level = false;
     private boolean drive_backwards = false;
+
+    private double driving_speed;
 
     /**
      * Construct the command
-     * @param timeout The time to drive for. Set to -1 to drive until Robot.gyro.isLevel() is true
+     * @param timeout The time to drive for. Set to -1 to drive until Robot.gyro.isLevel() is false
      * @param drive_backwards True if the robot should drive backwards
      */
     public DriveStraight(double timeout, boolean drive_backwards){
         if (timeout == -1){
-            stop_when_level = true;
+            stop_when_not_level = true;
         } else {
             this.setTimeout(timeout);
         }
 
         this.drive_backwards = drive_backwards;
+
+        driving_speed = DEFUALT_DRIVING_SPEED;
+    }
+
+    public DriveStraight(double timeout, double speed, boolean drive_backwards){
+        this(timeout, drive_backwards);
+        driving_speed = speed;
     }
 
     // Called just before this Command runs the first time
@@ -37,11 +46,11 @@ public class DriveStraight extends Command {
     protected void execute() {
         double speed;
         if (timeSinceInitialized() < .3){
-            speed = DRIVING_SPEED * .3;
+            speed = driving_speed * .3;
         } else if (timeSinceInitialized() < .6) {
-            speed = DRIVING_SPEED * .6;
+            speed = driving_speed * .6;
         } else {
-            speed = DRIVING_SPEED;
+            speed = driving_speed;
         }
 
         double left_speed = speed;
@@ -69,8 +78,8 @@ public class DriveStraight extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if (stop_when_level) {
-            return Robot.gyro.isLevel();
+        if (stop_when_not_level) {
+            return !Robot.gyro.isLevel();
         }
 
         return false;
