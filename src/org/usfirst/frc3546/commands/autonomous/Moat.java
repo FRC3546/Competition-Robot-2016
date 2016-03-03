@@ -1,20 +1,22 @@
 package org.usfirst.frc3546.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import org.usfirst.frc3546.commands.DriveStraight;
-import org.usfirst.frc3546.commands.SweeperArmPositionLower;
-import org.usfirst.frc3546.commands.SweeperArmPositionRaise;
-import org.usfirst.frc3546.commands.SweeperBarRotationOut;
+import edu.wpi.first.wpilibj.command.WaitCommand;
+import org.usfirst.frc3546.StopWhen;
+import org.usfirst.frc3546.commands.*;
 
 /**
  * Created by Owner on 2/27/2016.
  */
 public class Moat extends CommandGroup {
     public Moat(){
-        addSequential(new DriveStraight(5, false));
-        addSequential(new SweeperArmPositionLower());
-        addSequential(new SweeperBarRotationOut(), 1);
-        addSequential(new SweeperArmPositionRaise());
-        addSequential(new DriveStraight(-1, true));
+        addSequential(new DriveOverDefense(false));
+        addSequential(new DriveStraight(.6, false, false));
+//        addParallel(new SweeperBarRotationOut(), 2);
+        addSequential(new WaitCommand(1));
+        addSequential(new DriveOverDefense(true, false));
+        addSequential(new DriveStraight(.3, true, false));
+        addSequential(new WaitCommand(1));
+        addSequential(new DriveStraight(false, true, StopWhen.NotLevel));
     }
 }
