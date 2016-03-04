@@ -13,7 +13,6 @@ public class DriveStraight extends Command {
     public static final double EMERGENCY_TIMEOUT = 6;
     public static final int TIMES_AT_TARGET_NEEDED = 10;
     public static final double CHEVAL_ANGLE_THRESHOLD = 15;
-    public static final double P_VAL = .01;
 
     private int times_at_target = 0;
 
@@ -58,13 +57,6 @@ public class DriveStraight extends Command {
         this.ramp_up = ramp_up;
     }
 
-    public DriveStraight(double speed, boolean drive_backwards, boolean ramp_up, StopWhen stopWhen){
-        this(EMERGENCY_TIMEOUT, drive_backwards);
-        if (stopWhen == StopWhen.Timeout) throw new IllegalArgumentException();
-        this.ramp_up = ramp_up;
-        this.stopWhen = stopWhen;
-    }
-
     // Called just before this Command runs the first time
     protected void initialize() {
 
@@ -84,20 +76,7 @@ public class DriveStraight extends Command {
         double left_speed = speed;
         double right_speed = speed;
 
-//        double angle_setpoint = 0;
-//        double robot_angle = Robot.gyro.getRobotAngle();
-//
-//        if (Math.abs(robot_angle - angle_setpoint) >
-//                3) {
-//            if (robot_angle < 0){
-//                right_speed -= Math.abs(robot_angle) * P_VAL;
-//            } else {
-//                left_speed -= Math.abs(robot_angle) * P_VAL;
-//            }
-//        }
-
         Robot.drivetrain.takeInputs(left_speed, right_speed);
-//        System.out.println(left_speed + ", " + right_speed + "; ");
     }
 
 
@@ -108,11 +87,9 @@ public class DriveStraight extends Command {
             return true;
         }
         if (stopWhen == StopWhen.NotLevel) {
-//            System.out.println("Not Level: " + !Robot.gyro.isLevel());
             if (!Robot.gyro.isLevel()) times_at_target++; else times_at_target = 0;
             return times_at_target > TIMES_AT_TARGET_NEEDED;
         } else if (stopWhen == StopWhen.Level) {
-//            System.out.println("Level: " + Robot.gyro.isLevel());
             if (Robot.gyro.isLevel()) times_at_target++;
             else times_at_target = 0;
             return times_at_target > TIMES_AT_TARGET_NEEDED;
