@@ -61,6 +61,10 @@ public class Drivetrain extends Subsystem {
     public void takeInputs(double left, double right){drivetrainMotors.tankDrive(left, right);
     }
 
+    public void takeRotateInput(double gas, double rotate_rate){
+        drivetrainMotors.mecanumDrive_Cartesian(0, gas, rotate_rate, 0);
+    }
+
     public void stop() {drivetrainMotors.drive(0, 0);
     }
 }

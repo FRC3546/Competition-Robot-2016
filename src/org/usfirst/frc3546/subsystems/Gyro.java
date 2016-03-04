@@ -12,6 +12,8 @@
 package org.usfirst.frc3546.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SPI;
 import org.usfirst.frc3546.Robot;
 import org.usfirst.frc3546.RobotMap;
@@ -142,6 +144,11 @@ public class Gyro extends Subsystem {
      */
     public boolean isLevel(){
         return Math.abs(gyro_board.getPitch()) < LEVEL_TOLERANCE && Math.abs(gyro_board.getRoll()) < LEVEL_TOLERANCE;
+    }
+
+    public PIDSource getRobotAnglePIDSource(){
+        gyro_board.setPIDSourceType(PIDSourceType.kDisplacement);
+        return gyro_board;
     }
 }
 
