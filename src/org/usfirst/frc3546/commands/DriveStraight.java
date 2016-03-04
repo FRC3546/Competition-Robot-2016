@@ -13,6 +13,7 @@ public class DriveStraight extends Command {
     public static final double EMERGENCY_TIMEOUT = 6;
     public static final int TIMES_AT_TARGET_NEEDED = 10;
     public static final double CHEVAL_ANGLE_THRESHOLD = 15;
+    public static final double JERK_THRESHOLD = .5;
 
     private int times_at_target = 0;
 
@@ -52,7 +53,7 @@ public class DriveStraight extends Command {
 
     public DriveStraight(boolean drive_backwards, boolean ramp_up, StopWhen stopWhen){
         this(EMERGENCY_TIMEOUT, drive_backwards);
-        if (stopWhen == StopWhen.Timeout) throw new IllegalArgumentException();
+        if (stopWhen == StopWhen.Timeout || stopWhen == StopWhen.YawAngle) throw new IllegalArgumentException();
         this.stopWhen = stopWhen;
         this.ramp_up = ramp_up;
     }
@@ -93,12 +94,23 @@ public class DriveStraight extends Command {
             if (Robot.gyro.isLevel()) times_at_target++;
             else times_at_target = 0;
             return times_at_target > TIMES_AT_TARGET_NEEDED;
-        } else if (stopWhen == StopWhen.ChevalAngle){
-            System.out.println(Robot.gyro.getRobotPitch());
+        } else if (stopWhen == StopWhen.ChevalAngle) {
             return Robot.gyro.getRobotPitch() > CHEVAL_ANGLE_THRESHOLD;
+        } else if (stopWhen == StopWhen.Collision){
+            return checkJerk();
         } else {
             return false;
         }
+    }
+
+    private boolean checkJerk(){
+        double jerk = Robot.gyro.getJerk();
+        if (jerk > JERK_THRESHOLD){
+            System.out.println("Robot collided with something");
+            return true;
+        }
+
+        return false;
     }
 
     // Called once after isFinished returns true
