@@ -67,6 +67,7 @@ public class RobotMap {
         climbingClimbingArmExtensionEncoder.setDistancePerPulse(1.0);
         climbingClimbingArmExtensionEncoder.setPIDSourceType(PIDSourceType.kRate);
         ballIntakeSweeperBarRotationMotor = new Relay(0);
+        ballIntakeSweeperBarRotationMotor.setSafetyEnabled(false);
         LiveWindow.addActuator("BallIntake", "SweeperBarRotationMotor", ballIntakeSweeperBarRotationMotor);
         
         ballIntakeSweeperBarPositionSolenoid = new DoubleSolenoid(0, 2, 3);

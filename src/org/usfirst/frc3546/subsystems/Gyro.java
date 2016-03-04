@@ -127,6 +127,14 @@ public class Gyro extends Subsystem {
         return gyro_board.getYaw() + initial_offset;
     }
 
+    public double getRobotPitch(){
+        return gyro_board.getRoll();
+    }
+
+    public double getRobotRoll(){
+        return gyro_board.getPitch();
+    }
+
     /**
      * Makes a judgement about whether or not the robot is level relative to the field. Probably used to
      * check that we're over a defense

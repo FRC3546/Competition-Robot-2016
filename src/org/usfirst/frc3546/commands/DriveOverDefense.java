@@ -16,7 +16,7 @@ public class DriveOverDefense extends CommandGroup {
 
     public DriveOverDefense(boolean drive_backwards, boolean stop_inside){
         addSequential(new DriveStraight(drive_backwards, true, StopWhen.NotLevel));
-        if (!stop_inside)addSequential(new DriveStraight(.3, drive_backwards, false));
+        if (!stop_inside) addSequential(new DriveStraight(.3, drive_backwards, false));
         if (!stop_inside) addSequential(new DriveStraight(drive_backwards, false, StopWhen.Level));
     }
 }

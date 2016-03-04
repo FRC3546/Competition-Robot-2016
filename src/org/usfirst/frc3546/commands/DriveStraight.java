@@ -12,6 +12,7 @@ public class DriveStraight extends Command {
     public static final double DEFUALT_DRIVING_SPEED = .7;
     public static final double EMERGENCY_TIMEOUT = 6;
     public static final int TIMES_AT_TARGET_NEEDED = 10;
+    public static final double CHEVAL_ANGLE_THRESHOLD = 15;
     public static final double P_VAL = .01;
 
     private int times_at_target = 0;
@@ -102,16 +103,24 @@ public class DriveStraight extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+        if (timeSinceInitialized() > timeout){
+            if (stopWhen != StopWhen.Timeout) System.out.println("DriveStraight timed out!");
+            return true;
+        }
         if (stopWhen == StopWhen.NotLevel) {
-            System.out.println("Not Level: " + !Robot.gyro.isLevel());
+//            System.out.println("Not Level: " + !Robot.gyro.isLevel());
             if (!Robot.gyro.isLevel()) times_at_target++; else times_at_target = 0;
             return times_at_target > TIMES_AT_TARGET_NEEDED;
         } else if (stopWhen == StopWhen.Level) {
-            System.out.println("Level: " + Robot.gyro.isLevel());
-            if (Robot.gyro.isLevel()) times_at_target++; else times_at_target = 0;
+//            System.out.println("Level: " + Robot.gyro.isLevel());
+            if (Robot.gyro.isLevel()) times_at_target++;
+            else times_at_target = 0;
             return times_at_target > TIMES_AT_TARGET_NEEDED;
+        } else if (stopWhen == StopWhen.ChevalAngle){
+            System.out.println(Robot.gyro.getRobotPitch());
+            return Robot.gyro.getRobotPitch() > CHEVAL_ANGLE_THRESHOLD;
         } else {
-            return timeSinceInitialized() > timeout;
+            return false;
         }
     }
 
