@@ -10,11 +10,11 @@ import org.usfirst.frc3546.commands.DropBall;
  * Created by Owner on 2/27/2016.
  */
 public class RockWallRevised extends CommandGroup {
-    public RockWallRevised(){
+    public RockWallRevised(boolean drop_ball){
         addSequential(new DriveOverDefense(false));
         addSequential(new DriveStraight(.2, false, false));
         addParallel(new WaitCommand(1));
-        addSequential(new DropBall(true));
+        if (drop_ball) addSequential(new DropBall(true));
         addSequential(new DriveOverDefense(true, false));
     }
 }

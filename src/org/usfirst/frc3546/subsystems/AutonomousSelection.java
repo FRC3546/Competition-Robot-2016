@@ -14,10 +14,14 @@ public class AutonomousSelection {
     public AutonomousSelection(){
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Do Nothing", new DoNothing());
-        autoChooser.addObject("Low Bar - Drop Ball", new LowBar());
-        autoChooser.addObject("Cheval De Frise - Drop Ball", new ChevalDeFrise());
-        autoChooser.addObject("Category B - Drop Ball", new Moat());
-        autoChooser.addObject("Category D - Drop Ball", new RockWallRevised());
+        autoChooser.addObject("Low Bar - Drop Ball", new LowBar(true));
+        autoChooser.addObject("Cheval De Frise - Drop Ball", new ChevalDeFrise(true));
+        autoChooser.addObject("Category B - Drop Ball", new Moat(true));
+        autoChooser.addObject("Category D - Drop Ball", new RockWallRevised(true));
+        autoChooser.addObject("Low Bar - Keep Ball", new LowBar(false));
+        autoChooser.addObject("Cheval De Frise - Keep Ball", new ChevalDeFrise(false));
+        autoChooser.addObject("Category B - Keep Ball", new Moat(false));
+        autoChooser.addObject("Category D - Keep Ball", new RockWallRevised(false));
 
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
     }

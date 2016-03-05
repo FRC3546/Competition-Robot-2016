@@ -10,11 +10,11 @@ import org.usfirst.frc3546.commands.*;
  * Created by Owner on 2/27/2016.
  */
 public class LowBar extends CommandGroup {
-    public LowBar(){
+    public LowBar(boolean drop_ball){
         addSequential(new SweeperArmPositionLower());
         addSequential(new DriveOverDefense(false));
         addSequential(new DriveStraight(1.2, false, false));
-        addParallel(new SweeperBarRotationOut(), 2);
+        if (drop_ball) addParallel(new SweeperBarRotationOut(), 2);
         addSequential(new WaitCommand(1));
         addSequential(new DriveOverDefense(true, true));
         addSequential(new DriveStraight(2.4, true, false));
