@@ -14,6 +14,7 @@ package org.usfirst.frc3546;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc3546.commands.*;
@@ -95,8 +96,13 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-        autonomousCommand = autonomousSelection.getSelectedCommand();
-        if (autonomousCommand != null) autonomousCommand.start();
+        double autonomousDelay = autonomousSelection.getSelectedDelay();
+        autonomousCommand =
+                new SequentialBiCommand(
+                        new WaitCommand(autonomousDelay),
+                        autonomousSelection.getSelectedCommand()
+                );
+        autonomousCommand.start();
     }
 
     /**
