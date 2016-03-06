@@ -13,7 +13,7 @@ public class DriveStraight extends Command {
     public static final double EMERGENCY_TIMEOUT = 6;
     public static final int TIMES_AT_TARGET_NEEDED = 10;
     public static final double CHEVAL_ANGLE_THRESHOLD = 15;
-    public static final double JERK_THRESHOLD = .5;
+    public static final double JERK_THRESHOLD = 1.3;
 
     private int times_at_target = 0;
 
@@ -105,7 +105,7 @@ public class DriveStraight extends Command {
 
     private boolean checkJerk(){
         double jerk = Robot.gyro.getJerk();
-        if (jerk > JERK_THRESHOLD){
+        if (jerk > JERK_THRESHOLD && timeSinceInitialized() > .6){
             System.out.println("Robot collided with something");
             return true;
         }

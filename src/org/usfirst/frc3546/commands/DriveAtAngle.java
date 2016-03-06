@@ -2,6 +2,8 @@ package org.usfirst.frc3546.commands;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -14,17 +16,17 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Andrew on 3/4/16.
  */
-public class DriveAtAngle extends Command implements PIDOutput {
+public class DriveAtAngle extends Command implements PIDOutput, PIDSource {
 
-    public static final double P = 0.3;
+    public static final double P = 0.08;
     public static final double I = 0;
     public static final double D = 0;
 
-    public static final double MAX_TURN_OUTPUT = .4;
-    public static final double ANGLE_TOLERANCE = 6;
+    public static final double MAX_TURN_OUTPUT = .5;
+    public static final double ANGLE_TOLERANCE = 5;
     public static final double EMERGENCY_TIMEOUT = 6;
 
-    public static final double JERK_THRESHOLD = .5;
+    public static final double JERK_THRESHOLD = 1.3;
 
     private PIDController turnController;
     private double rotateRate;
@@ -34,11 +36,12 @@ public class DriveAtAngle extends Command implements PIDOutput {
 
     public DriveAtAngle(double angle, double forward_output, StopWhen stopWhen){
         this(angle, forward_output);
-        if (stopWhen != StopWhen.YawAngle && stopWhen != StopWhen.Collision)
+        if (stopWhen != StopWhen.YawAngle && stopWhen != StopWhen.Collision && stopWhen != StopWhen.NotLevel)
             throw new IllegalArgumentException();
 
         this.stopWhen = stopWhen;
     }
+
 
     public DriveAtAngle(double angle, double forward_output, double timeout){
         this(angle, forward_output);
@@ -48,11 +51,12 @@ public class DriveAtAngle extends Command implements PIDOutput {
 
 
     private DriveAtAngle(double angle, double forward_output){
-        turnController = new PIDController(P, I, D, Robot.gyro.getRobotAnglePIDSource(), this);
+        turnController = new PIDController(P, I, D, this, this);
         turnController.setInputRange(-180, 180);
         turnController.setContinuous(true);
         turnController.setOutputRange(-MAX_TURN_OUTPUT, MAX_TURN_OUTPUT);
         turnController.setAbsoluteTolerance(ANGLE_TOLERANCE);
+        turnController.setToleranceBuffer(1);
         turnController.disable();
         turnController.setSetpoint(angle);
 
@@ -88,9 +92,11 @@ public class DriveAtAngle extends Command implements PIDOutput {
         }
 
         if (stopWhen == StopWhen.YawAngle){
-            return turnController.onTarget();
+            return Math.abs(Robot.gyro.getGyroSensorAngle() - turnController.getSetpoint()) < ANGLE_TOLERANCE;
         } else if (stopWhen == StopWhen.Collision) {
             return checkJerk();
+        } else if (stopWhen == StopWhen.NotLevel) {
+            return !Robot.gyro.isLevel();
         } else { //Timeout
             return timeSinceInitialized() > timeout;
         }
@@ -98,7 +104,7 @@ public class DriveAtAngle extends Command implements PIDOutput {
 
     private boolean checkJerk(){
         double jerk = Robot.gyro.getJerk();
-        if (jerk > JERK_THRESHOLD){
+        if (jerk > JERK_THRESHOLD && timeSinceInitialized() > .6){
             System.out.println("Robot collided with something");
             return true;
         }
@@ -115,5 +121,18 @@ public class DriveAtAngle extends Command implements PIDOutput {
     @Override
     protected void interrupted() {
         end();
+    }
+
+    @Override
+    public void setPIDSourceType(PIDSourceType pidSource) {}
+
+    @Override
+    public PIDSourceType getPIDSourceType() {
+        return PIDSourceType.kDisplacement;
+    }
+
+    @Override
+    public double pidGet() {
+        return Robot.gyro.getGyroSensorAngle();
     }
 }

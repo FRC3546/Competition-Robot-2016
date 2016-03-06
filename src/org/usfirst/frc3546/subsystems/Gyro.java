@@ -58,21 +58,17 @@ public class Gyro extends Subsystem {
             /* Alternatively:  I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB     */
             /* See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for details. */
             gyro_board = new AHRS(SPI.Port.kMXP);
-            gyro_board.zeroYaw();
-
-            if (AUTO_CORRECT_GYRO_BASED_ON_INIT_COMPASS){
-                if (!gyro_board.isMagneticDisturbance()) {
-                    initial_offset = -getCompassCorrectedForAlliance();
-                }
-            }
 
             last_world_linear_accel_x = gyro_board.getWorldLinearAccelX();
             last_world_linear_accel_y = gyro_board.getWorldLinearAccelY();
             last_check_time = Timer.getFPGATimestamp();
 
+            initial_offset = gyro_board.getYaw();
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
         }
+
+
     }
 
     public void initDefaultCommand() {
@@ -94,6 +90,7 @@ public class Gyro extends Subsystem {
      * The compass should be calibrated so that the vector from the center of the field to the midpoint of the blue
      * alliance wall is the zero heading
      */
+    @Deprecated
     public float getRobotAngle() {
         //There are a couple options here, they are as follows:
         // - gyro_board.getYaw() (Proccesed gyro data)
@@ -110,6 +107,7 @@ public class Gyro extends Subsystem {
         return board_angle;
     }
 
+    @Deprecated
     public float getCompassCorrectedForAlliance(){
         DriverStation.Alliance alliance = DriverStation.getInstance().getAlliance();
 
@@ -133,7 +131,8 @@ public class Gyro extends Subsystem {
     }
 
     public float getGyroSensorAngle(){
-        return gyro_board.getYaw() + initial_offset;
+//        return gyro_board.getYaw();
+        return -(((gyro_board.getYaw() + 180 - initial_offset) % 360) - 180);
     }
 
     public double getRobotPitch(){
@@ -151,11 +150,6 @@ public class Gyro extends Subsystem {
      */
     public boolean isLevel(){
         return Math.abs(gyro_board.getPitch()) < LEVEL_TOLERANCE && Math.abs(gyro_board.getRoll()) < LEVEL_TOLERANCE;
-    }
-
-    public PIDSource getRobotAnglePIDSource(){
-        gyro_board.setPIDSourceType(PIDSourceType.kDisplacement);
-        return gyro_board;
     }
 
     public double getJerk(){
@@ -177,6 +171,8 @@ public class Gyro extends Subsystem {
 
     }
 
-
+    public void zeroYaw(){
+        initial_offset = gyro_board.getYaw();
+    }
 }
 
