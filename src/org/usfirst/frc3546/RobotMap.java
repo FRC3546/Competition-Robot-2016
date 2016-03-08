@@ -65,6 +65,7 @@ public class RobotMap {
         climbingClimbingArmExtensionEncoder = new Encoder(4, 5, false, EncodingType.k4X);
         LiveWindow.addSensor("Climbing", "ClimbingArmExtensionEncoder", climbingClimbingArmExtensionEncoder);
         climbingClimbingArmExtensionEncoder.setDistancePerPulse(1.0);
+        climbingClimbingArmExtensionEncoder.reset();
         climbingClimbingArmExtensionEncoder.setPIDSourceType(PIDSourceType.kRate);
         ballIntakeSweeperBarRotationMotor = new Relay(0);
         ballIntakeSweeperBarRotationMotor.setSafetyEnabled(false);

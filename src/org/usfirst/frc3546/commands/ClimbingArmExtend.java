@@ -41,12 +41,16 @@ public class ClimbingArmExtend extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.climbing.extendArm();
+        if (Robot.climbing.isBelowUpper()){
+            Robot.climbing.extendArm();
+        } else {
+            Robot.climbing.stopArm();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.climbing.isBelowUpper();
     }
 
     // Called once after isFinished returns true
