@@ -10,7 +10,7 @@ import org.usfirst.frc3546.commands.*;
  * Created by Owner on 2/27/2016.
  */
 public class ChevalDeFrise extends CommandGroup {
-    public ChevalDeFrise(boolean drop_ball){
+    public ChevalDeFrise(boolean drop_ball, StopWhen stopWhen){
 
         addSequential(new DriveStraight(false, true, StopWhen.NotLevel));
         addParallel(new DriveStraight(.2, false, false));
@@ -23,7 +23,18 @@ public class ChevalDeFrise extends CommandGroup {
         addParallel(new SequentialBiCommand(new WaitCommand(.5), new SweeperArmPositionRaise()));
         addSequential(new DriveStraight(false, true, StopWhen.Level));
 
-//        addSequential(new WaitCommand(.5));
-//        if (drop_ball) addSequential(new DropBall(true));
+        addSequential(new WaitCommand(.5));
+        if (drop_ball) addSequential(new DropBall(true));
+
+        if (stopWhen == StopWhen.Collision) {
+            addSequential(new DriveStraight(false, true, StopWhen.Collision));
+        } else if (stopWhen == StopWhen.NotLevel){
+            addSequential(new DriveStraight(false, true, StopWhen.NotLevel));
+        }
+
+    }
+
+    public ChevalDeFrise(boolean drop_ball){
+        this(drop_ball, null);
     }
 }

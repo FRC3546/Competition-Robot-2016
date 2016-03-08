@@ -3,6 +3,7 @@ package org.usfirst.frc3546.subsystems;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc3546.StopWhen;
 import org.usfirst.frc3546.commands.autonomous.*;
 
 import java.awt.geom.Arc2D;
@@ -17,14 +18,26 @@ public class AutonomousSelection {
     public AutonomousSelection(){
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Do Nothing", new DoNothing());
+
         autoChooser.addObject("Low Bar - Drop Ball", new LowBar(true));
         autoChooser.addObject("Cheval De Frise - Drop Ball", new ChevalDeFrise(true));
         autoChooser.addObject("Category B - Drop Ball", new Moat(true));
         autoChooser.addObject("Category D - Drop Ball", new RockWallRevised(true));
+
         autoChooser.addObject("Low Bar - Keep Ball", new LowBar(false));
         autoChooser.addObject("Cheval De Frise - Keep Ball", new ChevalDeFrise(false));
         autoChooser.addObject("Category B - Keep Ball", new Moat(false));
         autoChooser.addObject("Category D - Keep Ball", new RockWallRevised(false));
+
+        autoChooser.addObject("Low Bar - Keep Ball, Get out of way (collision)", new LowBar(false, StopWhen.Collision));
+        autoChooser.addObject("Cheval De Frise - Keep Ball, Get out of way (collision)", new ChevalDeFrise(false, StopWhen.Collision));
+        autoChooser.addObject("Category B - Keep Ball, Get out of way (collision)", new Moat(false, StopWhen.Collision));
+        autoChooser.addObject("Category D - Keep Ball, Get out of way (collision)", new RockWallRevised(false, StopWhen.Collision));
+
+        autoChooser.addObject("Low Bar - Keep Ball, Get out of way (On Ramp)", new LowBar(false, StopWhen.NotLevel));
+        autoChooser.addObject("Cheval De Frise - Keep Ball, Get out of way (On Ramp)", new ChevalDeFrise(false, StopWhen.NotLevel));
+        autoChooser.addObject("Category B - Keep Ball, Get out of way (On Ramp)", new Moat(false, StopWhen.NotLevel));
+        autoChooser.addObject("Category D - Keep Ball, Get out of way (On Ramp)", new RockWallRevised(false, StopWhen.NotLevel));
 
         delayChooser = new SendableChooser();
         delayChooser.addDefault("0 Seconds", 0.0);
