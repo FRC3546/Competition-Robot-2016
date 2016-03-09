@@ -126,7 +126,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        System.out.println(Robot.climbing.getArmLength());
+//        System.out.println(Robot.climbing.getArmLength());
         Scheduler.getInstance().run();
     }
 

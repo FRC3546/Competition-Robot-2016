@@ -42,7 +42,7 @@ public class Climbing extends Subsystem {
     public static final double SLOW_WINCH_SPEED = .6;
     public static final double ARM_IN_SPEED = 1.0;
     public static final double ARM_OUT_SPEED = 1.0;
-    public static final double ENCODER_LIMIT = 2000000000;
+    public static final double ENCODER_LIMIT = 9000;
     public static final DoubleSolenoid.Value ARM_UP = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value ARM_DOWN = DoubleSolenoid.Value.kReverse;
 

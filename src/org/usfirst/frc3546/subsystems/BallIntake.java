@@ -68,6 +68,14 @@ public class BallIntake extends Subsystem {
         sweeperBarPositionSolenoid.set(ARM_DOWN);
     }
 
+    public void invertArm(){
+        if (sweeperBarPositionSolenoid.get() == ARM_DOWN){
+            sweeperBarPositionSolenoid.set(ARM_UP);
+        } else {
+            sweeperBarPositionSolenoid.set(ARM_DOWN);
+        }
+    }
+
     public DoubleSolenoid.Value getBarPosition(){
         return sweeperBarPositionSolenoid.get();
     }

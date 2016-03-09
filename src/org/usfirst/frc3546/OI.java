@@ -12,6 +12,7 @@
 package org.usfirst.frc3546;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import jdk.nashorn.internal.scripts.JO;
 import org.usfirst.frc3546.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
@@ -63,6 +64,7 @@ public class OI {
     public JoystickButton climbingArmExtendButton;
     public JoystickButton cimbingWinchLetOutButton;
     public JoystickButton sweeperArmPositionRaiseButton;
+    public JoystickButton climbingArmExtendWithOverrideButton;
     public Joystick rightJoystick;
     public JoystickButton climbingAuthorization1;
     public JoystickButton climbingAuthorization2;
@@ -88,7 +90,7 @@ public class OI {
         rightJoystick = new Joystick(1);
         
         sweeperArmPositionRaiseButton = new JoystickButton(rightJoystick, 3);
-        sweeperArmPositionRaiseButton.whenPressed(new SweeperArmPositionRaise());
+        sweeperArmPositionRaiseButton.whenPressed(new SweeperArmPositionToggle());
         cimbingWinchLetOutButton = new JoystickButton(rightJoystick, 11);
         cimbingWinchLetOutButton.whileHeld(new CimbingWinchLetOut());
         climbingArmExtendButton = new JoystickButton(rightJoystick, 7);
@@ -96,7 +98,7 @@ public class OI {
         climbingArmRotateToggleButton = new JoystickButton(rightJoystick, 9);
         climbingArmRotateToggleButton.whenPressed(new ClimbingArmRotateToggle());
         sweeperArmPositionLowerButton = new JoystickButton(rightJoystick, 2);
-        sweeperArmPositionLowerButton.whenPressed(new SweeperArmPositionLower());
+        sweeperArmPositionLowerButton.whenPressed(new SweeperArmPositionToggle());
         climbingWinchPullInButton = new JoystickButton(rightJoystick, 10);
         climbingWinchPullInButton.whileHeld(new ClimbingWinchPullIn());
         climbingArmRetractButton = new JoystickButton(rightJoystick, 6);
@@ -107,6 +109,8 @@ public class OI {
         sweeperBarRotationOutButton.whileHeld(new SweeperBarRotationOut());
         sweeperBarRotationInButton = new JoystickButton(leftJoystick, 1);
         sweeperBarRotationInButton.whileHeld(new SweeperBarRotationIn());
+        climbingArmExtendWithOverrideButton = new JoystickButton(leftJoystick, 8);
+        climbingArmExtendWithOverrideButton.whileHeld(new ClimbingArmRetractOverrideEncoder());
 
 
         // SmartDashboard Buttons
@@ -136,12 +140,13 @@ public class OI {
 
     public boolean isClimbingJoystickForward(){
         return climbingJoystick.getAxis(Joystick.AxisType.kY)
-                > CLIMBING_JOYSTICK_THRESHOLD;
+                < -CLIMBING_JOYSTICK_THRESHOLD;
     }
 
     public boolean isClimbingJoystickBackward(){
+        System.out.println(climbingJoystick.getAxis(Joystick.AxisType.kY));
         return climbingJoystick.getAxis(Joystick.AxisType.kY)
-                < -CLIMBING_JOYSTICK_THRESHOLD;
+                > CLIMBING_JOYSTICK_THRESHOLD;
     }
 
 }

@@ -38,18 +38,21 @@ public class ClimbingStage1 extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        if (Robot.oi.isClimbingJoystickBackward()){
-            Robot.climbing.setArmPositionValve(Climbing.ARM_UP);
-        }
+
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if (Robot.oi.isClimbingJoystickForward()){
+            if (Robot.climbing.isBelowUpper()){
+                Robot.climbing.extendArm();
+            } else {
+                Robot.climbing.stopArm();
+            }
+        }
+
         if (Robot.oi.isClimbingJoystickBackward()){
-            Robot.climbing.letWinchOut();
-        } else if (Robot.oi.isClimbingJoystickForward()){
-            Robot.climbing.letWinchOut();
-            Robot.climbing.extendArm();
+            Robot.climbing.setArmPositionValve(Climbing.ARM_UP);
         }
     }
 
