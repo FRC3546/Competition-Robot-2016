@@ -10,7 +10,7 @@ import org.usfirst.frc3546.commands.autonomous.DoNothing;
 public class LateralAuto extends CommandGroup {
     /**
      *
-     * @param numStations -2 = Two left, -1 = One Left,
+     * @param numStations -3 = Three left, -2 = Two left, -1 = One Left,
      *                  0 = Nothing,
      *                  1 = One Right, 2 = Two Right
      */

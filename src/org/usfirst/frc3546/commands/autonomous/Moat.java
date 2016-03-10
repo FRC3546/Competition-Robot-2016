@@ -9,7 +9,7 @@ import org.usfirst.frc3546.commands.*;
  * Created by Owner on 2/27/2016.
  */
 public class Moat extends CommandGroup {
-    public Moat(boolean drop_ball, StopWhen stopWhen){
+    public Moat(boolean drop_ball, boolean back_over, StopWhen stopWhen){
         addSequential(new DriveOverDefense(false));
         addSequential(new DriveStraight(.8, false, false));
         addParallel(new WaitCommand(1));
@@ -19,12 +19,18 @@ public class Moat extends CommandGroup {
         } else if (stopWhen == StopWhen.NotLevel){
             addSequential(new DriveStraight(false, true, StopWhen.NotLevel));
         } else {
-            addSequential(new DriveOverDefense(true, false));
-            addSequential(new DriveStraight(.3, true, false));
+            if (back_over) {
+                addSequential(new DriveOverDefense(true, false));
+                addSequential(new DriveStraight(.3, true, false));
+            }
         }
     }
 
+    public Moat(boolean drop_ball, boolean back_over){
+            this(drop_ball, back_over, null);
+    }
+
     public Moat(boolean drop_ball){
-        this(drop_ball, null);
+            this(drop_ball, true);
     }
 }
