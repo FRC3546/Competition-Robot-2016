@@ -3,7 +3,9 @@ package org.usfirst.frc3546.subsystems;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc3546.SequentialBiCommand;
 import org.usfirst.frc3546.StopWhen;
+import org.usfirst.frc3546.commands.LateralAuto;
 import org.usfirst.frc3546.commands.autonomous.*;
 
 import java.awt.geom.Arc2D;
@@ -14,6 +16,7 @@ import java.awt.geom.Arc2D;
 public class AutonomousSelection {
     private SendableChooser autoChooser;
     private SendableChooser delayChooser;
+    private SendableChooser movementChooser;
 
     public AutonomousSelection(){
         autoChooser = new SendableChooser();
@@ -39,6 +42,13 @@ public class AutonomousSelection {
         autoChooser.addObject("Category B - Keep Ball, Get out of way (On Ramp)", new Moat(false, StopWhen.NotLevel));
         autoChooser.addObject("Category D - Keep Ball, Get out of way (On Ramp)", new RockWallRevised(false, StopWhen.NotLevel));
 
+        movementChooser = new SendableChooser();
+        movementChooser.addDefault("No Lateral Movement", new DoNothing());
+        movementChooser.addObject("One Defense Right", new LateralAuto(1));
+        movementChooser.addObject("Two Defenses Right", new LateralAuto(2) );
+        movementChooser.addObject("One Defense Left",  new LateralAuto(-1));
+        movementChooser.addObject("Two Defenses Left",  new LateralAuto(-2));
+
         delayChooser = new SendableChooser();
         delayChooser.addDefault("0 Seconds", 0.0);
         delayChooser.addObject("1 Second", 1.0);
@@ -52,12 +62,13 @@ public class AutonomousSelection {
         delayChooser.addObject("9 Seconds", 9.0);
         delayChooser.addObject("10 Seconds", 10.0);
 
+        SmartDashboard.putData("Autonomous Lateral Movement Chooser", movementChooser);
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
         SmartDashboard.putData("Autonomous Delay Chooser", delayChooser);
     }
 
     public Command getSelectedCommand(){
-        return (Command) autoChooser.getSelected();
+        return new SequentialBiCommand((Command) movementChooser.getSelected(), (Command) autoChooser.getSelected());
     }
 
     public double getSelectedDelay(){
