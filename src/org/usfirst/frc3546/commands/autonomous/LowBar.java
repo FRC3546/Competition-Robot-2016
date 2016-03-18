@@ -22,7 +22,7 @@ public class LowBar extends CommandGroup {
         } else {
             addSequential(new WaitCommand(1));
             addSequential(new DriveOverDefense(true, true));
-            addSequential(new DriveStraight(2.4, true, false));
+            addSequential(new DriveStraight(1.5, true, false));
         }
     }
 
