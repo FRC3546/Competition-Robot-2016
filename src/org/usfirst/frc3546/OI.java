@@ -67,6 +67,7 @@ public class OI {
     public JoystickButton climbingArmExtendWithOverrideButton;
     public Joystick rightJoystick;
     public JoystickButton climbingAuthorization1;
+    public JoystickButton climbingArmRotateToggleButtonOnClimbingStick;
     public JoystickButton climbingAuthorization2;
     public Joystick climbingJoystick;
 
@@ -84,6 +85,8 @@ public class OI {
             climbingAuthorization2.whileHeld(new ClimbingStage2());
             climbingAuthorization1 = new JoystickButton(climbingJoystick, 1);
             climbingAuthorization1.whileHeld(new ClimbingStage1());
+            climbingArmRotateToggleButtonOnClimbingStick = new JoystickButton(climbingJoystick, 4);
+            climbingArmRotateToggleButtonOnClimbingStick.whenPressed(new ClimbingArmRotateToggle());
         } catch (Exception e){
             DriverStation.reportError("The climbing joystick is unplugged. Check the order of the joysticks", false);
         }
@@ -144,7 +147,7 @@ public class OI {
     }
 
     public boolean isClimbingJoystickBackward(){
-        System.out.println(climbingJoystick.getAxis(Joystick.AxisType.kY));
+//        System.out.println(climbingJoystick.getAxis(Joystick.AxisType.kY));
         return climbingJoystick.getAxis(Joystick.AxisType.kY)
                 > CLIMBING_JOYSTICK_THRESHOLD;
     }
