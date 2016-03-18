@@ -58,6 +58,15 @@ public class DriveStraight extends Command {
         this.ramp_up = ramp_up;
     }
 
+    public DriveStraight(double driving_speed, boolean drive_backwards, boolean ramp_up, StopWhen stopWhen){
+        this(EMERGENCY_TIMEOUT, drive_backwards);
+        if (stopWhen == StopWhen.Timeout || stopWhen == StopWhen.YawAngle) throw new IllegalArgumentException();
+        this.stopWhen = stopWhen;
+        this.ramp_up = ramp_up;
+        this.driving_speed = -driving_speed;
+        if (drive_backwards) this.driving_speed = driving_speed;
+    }
+
     // Called just before this Command runs the first time
     protected void initialize() {
 
