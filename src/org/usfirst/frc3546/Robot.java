@@ -63,7 +63,7 @@ public class Robot extends IterativeRobot {
         powerDistribution = new PowerDistribution();
         autonomousSelection = new AutonomousSelection();
 
-        SmartDashboard.putData("Andrew Testing", new ScoreLow());
+        SmartDashboard.putData("Andrew Testing", new ScoreLow(true));
         SmartDashboard.putData("Print Pitch", new PrintGryo());
         SmartDashboard.putData("Reset Gyro", new ZeroYaw());
 
@@ -96,12 +96,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-        double autonomousDelay = autonomousSelection.getSelectedDelay();
-        autonomousCommand =
-                new SequentialBiCommand(
-                        new WaitCommand(autonomousDelay),
-                        autonomousSelection.getSelectedCommand()
-                );
+        autonomousCommand = autonomousSelection.getSelectedCommand();
         autonomousCommand.start();
     }
 

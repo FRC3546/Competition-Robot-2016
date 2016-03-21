@@ -10,7 +10,7 @@ import org.usfirst.frc3546.commands.*;
  * Created by Owner on 2/27/2016.
  */
 public class LowBar extends CommandGroup {
-    public LowBar(boolean drop_ball, StopWhen stopWhen){
+    public LowBar(boolean drop_ball, boolean back_over, StopWhen stopWhen){
         addSequential(new SweeperArmPositionLower());
         addSequential(new DriveOverDefense(false));
         addSequential(new DriveStraight(1.2, false, false));
@@ -26,7 +26,11 @@ public class LowBar extends CommandGroup {
         }
     }
 
+    public LowBar(boolean drop_ball, boolean back_over){
+        this(drop_ball, back_over, null);
+    }
+
     public LowBar(boolean drop_ball){
-        this(drop_ball, null);
+        this(drop_ball, true);
     }
 }

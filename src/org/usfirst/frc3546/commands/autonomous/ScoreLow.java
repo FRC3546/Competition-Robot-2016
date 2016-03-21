@@ -12,15 +12,19 @@ import org.usfirst.frc3546.commands.SweeperBarRotationOut;
  * Created by Owner on 3/5/2016.
  */
 public class ScoreLow extends CommandGroup {
-    public ScoreLow(){
-//        addSequential(new DriveAtAngle(0));
-//        addSequential(new DriveAtAngle(0, .6, StopWhen.Collision)); //Hits wall
-//        addSequential(new DriveStraight(.3, true, true));
-//        addSequential(new DriveAtAngle(90));
-        addSequential(new DriveAtAngle(0, .4, StopWhen.NotLevel)); //TODO: Change 0 to 80
-        addParallel(new SweeperArmPositionLower());
-        addSequential(new WaitCommand(3.7));
-        addParallel(new SweeperBarRotationOut());
-//        addSequential(new DriveAtAngle(1.5, false, true));
+    public ScoreLow(boolean onTowerLeft){
+        addSequential(new DriveAtAngle(0)); //Drive towards wall
+        addSequential(new DriveAtAngle(0, .6, StopWhen.Collision)); //Hits wall
+        addSequential(new DriveStraight(.3, true, true)); //Back up a bit
+
+        double angleMult;
+        if (onTowerLeft) {
+            angleMult = 1;
+        } else {
+            angleMult = -1;
+        }
+
+        addSequential(new DriveAtAngle(angleMult * 90)); //Spin
+        addSequential(new ScoreLowFromWall(angleMult * 80)); //Score
     }
 }
