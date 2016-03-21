@@ -1,11 +1,13 @@
 package org.usfirst.frc3546.subsystems;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc3546.SequentialBiCommand;
 import org.usfirst.frc3546.StopWhen;
 import org.usfirst.frc3546.commands.LateralAuto;
+import org.usfirst.frc3546.commands.SequentialCommands;
 import org.usfirst.frc3546.commands.autonomous.*;
 
 import java.awt.geom.Arc2D;
@@ -77,7 +79,7 @@ public class AutonomousSelection {
 
         scoreChooser = new SendableChooser();
         scoreChooser.addDefault("Don't Score", new DoNothing());
-        scoreChooser.addObject("Defenses 1/2", new ScoreLow(true));
+        scoreChooser.addObject("Defenses 1 or 2", new ScoreLow(true));
         scoreChooser.addObject("Defense 3", new SequentialBiCommand(new LateralAuto(-2), new ScoreLow(true)));
         scoreChooser.addObject("Defense 4", new SequentialBiCommand(new LateralAuto(-3), new ScoreLow(true)));
         scoreChooser.addObject("Defense 5", new ScoreLow(false));
@@ -89,15 +91,11 @@ public class AutonomousSelection {
     }
 
     public Command getSelectedCommand(){
-        return new SequentialBiCommand(
-                    new SequentialBiCommand(
-                        (Command) delayChooser.getSelected(),
-                        (Command) movementChooser.getSelected()
-                    ),
-                    new SequentialBiCommand(
-                        (Command) autoChooser.getSelected(),
-                        (Command) scoreChooser.getSelected()
-                    )
-                );
+        return new SequentialCommands(
+                new WaitCommand((Double) delayChooser.getSelected()),
+                (Command) movementChooser.getSelected(),
+                (Command) autoChooser.getSelected(),
+                (Command) scoreChooser.getSelected()
+            );
     }
 }
