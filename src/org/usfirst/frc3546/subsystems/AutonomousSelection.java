@@ -6,8 +6,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc3546.SequentialBiCommand;
 import org.usfirst.frc3546.StopWhen;
+import org.usfirst.frc3546.commands.DriveAtAngle;
 import org.usfirst.frc3546.commands.LateralAuto;
 import org.usfirst.frc3546.commands.SequentialCommands;
+import org.usfirst.frc3546.commands.SweeperArmPositionLower;
 import org.usfirst.frc3546.commands.autonomous.*;
 
 /**
@@ -23,7 +25,10 @@ public class AutonomousSelection {
     public AutonomousSelection(){
         burglingChooser = new SendableChooser();
         burglingChooser.addDefault("Don't Burgle", new DoNothing());
-        burglingChooser.addObject("Burgle", new BurgleBall());
+        burglingChooser.addObject("Burgle Before", new BurgleBall());
+        burglingChooser.addObject("Set up to Burgle After Auto",
+                new SequentialCommands(new DriveAtAngle(180), new SweeperArmPositionLower())
+        );
 
         delayChooser = new SendableChooser();
         delayChooser.addDefault("0 Seconds", 0.0);
@@ -41,35 +46,39 @@ public class AutonomousSelection {
         movementChooser = new SendableChooser();
         movementChooser.addDefault("No Lateral Movement", new DoNothing());
         movementChooser.addObject("One Defense Right", new LateralAuto(1));
-        movementChooser.addObject("Two Defenses Right", new LateralAuto(2) );
-        movementChooser.addObject("One Defense Left",  new LateralAuto(-1));
+        movementChooser.addObject("Two Defenses Right", new LateralAuto(2));
+        movementChooser.addObject("One Defense Left", new LateralAuto(-1));
         movementChooser.addObject("Two Defenses Left",  new LateralAuto(-2));
 
         primaryChooser = new SendableChooser();
         primaryChooser.addDefault("Do Nothing", new DoNothing());
 
         primaryChooser.addObject("Low Bar - Drop Ball, Go back", new LowBar(true));
-        primaryChooser.addObject("Cheval De Frise - Drop Ball, Go back", new ChevalDeFrise(true));
         primaryChooser.addObject("Category B - Drop Ball, Go back", new Moat(true));
         primaryChooser.addObject("Category D - Drop Ball, Go back", new RockWallRevised(true));
 
         primaryChooser.addObject("Low Bar - Keep Ball, Go back", new LowBar(false));
-        primaryChooser.addObject("Cheval De Frise - Keep Ball, Go back", new ChevalDeFrise(false));
         primaryChooser.addObject("Category B - Keep Ball, Go back", new Moat(false));
         primaryChooser.addObject("Category D - Keep Ball, Go back", new RockWallRevised(false));
 
         primaryChooser.addObject("Low Bar - Keep Ball, Stay", new LowBar(false, false));
         primaryChooser.addObject("Cheval De Frise - Keep Ball, Stay", new ChevalDeFrise(false));
+        primaryChooser.addObject("Portcullis - Keep Ball, Stay", new Portcullis(false));
         primaryChooser.addObject("Category B - Keep Ball, Stay", new Moat(false, false));
         primaryChooser.addObject("Category D - Keep Ball, Stay", new RockWallRevised(false, false));
 
+        primaryChooser.addObject("Cheval De Frise - Drop Ball, Stay", new ChevalDeFrise(true));
+        primaryChooser.addObject("Portcullis - Drop Ball, Stay", new Portcullis(true));
+
         primaryChooser.addObject("Low Bar - Keep Ball, Get out of way (collision)", new LowBar(false, false, StopWhen.Collision));
         primaryChooser.addObject("Cheval De Frise - Keep Ball, Get out of way (collision)", new ChevalDeFrise(false, StopWhen.Collision));
+        primaryChooser.addObject("Portcullis - Keep Ball, Get out of way (collision)", new Portcullis(false, StopWhen.Collision));
         primaryChooser.addObject("Category B - Keep Ball, Get out of way (collision)", new Moat(false, false, StopWhen.Collision));
         primaryChooser.addObject("Category D - Keep Ball, Get out of way (collision)", new RockWallRevised(false, false, StopWhen.Collision));
 
         primaryChooser.addObject("Low Bar - Keep Ball, Get out of way (On Ramp)", new LowBar(false, false, StopWhen.NotLevel));
         primaryChooser.addObject("Cheval De Frise - Keep Ball, Get out of way (On Ramp)", new ChevalDeFrise(false, StopWhen.NotLevel));
+        primaryChooser.addObject("Portcullis - Keep Ball, Get out of way (On Ramp)", new Portcullis(false, StopWhen.NotLevel));
         primaryChooser.addObject("Category B - Keep Ball, Get out of way (On Ramp)", new Moat(false, false, StopWhen.NotLevel));
         primaryChooser.addObject("Category D - Keep Ball, Get out of way (On Ramp)", new RockWallRevised(false, false, StopWhen.NotLevel));
 
@@ -89,11 +98,19 @@ public class AutonomousSelection {
     }
 
     public Command getSelectedCommand(){
+        Command burgleCommand1 = (Command) burglingChooser.getSelected();
+        Command burgleCommand2 = (Command) burglingChooser.getSelected();
+
+        if (burgleCommand1 instanceof SequentialCommands) burgleCommand1 = new DoNothing();
+        if (burgleCommand2 instanceof BurgleBall) burgleCommand2 = new DoNothing();
+
         return new SequentialCommands(
+                burgleCommand1,
                 new WaitCommand((Double) delayChooser.getSelected()),
                 (Command) movementChooser.getSelected(),
                 (Command) primaryChooser.getSelected(),
-                (Command) scoreChooser.getSelected()
+                (Command) scoreChooser.getSelected(),
+                burgleCommand2
             );
     }
 }
