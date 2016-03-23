@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class SequentialCommands extends CommandGroup {
     public SequentialCommands (Command... commands){
         for (Command command : commands){
-            addSequential(command);
+            if (command != null) addSequential(command);
         }
     }
 }

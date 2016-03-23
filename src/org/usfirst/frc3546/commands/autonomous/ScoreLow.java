@@ -14,7 +14,7 @@ import org.usfirst.frc3546.commands.SweeperBarRotationOut;
 public class ScoreLow extends CommandGroup {
     public ScoreLow(boolean onTowerLeft){
         addSequential(new DriveAtAngle(0)); //Drive towards wall
-        addSequential(new DriveAtAngle(0, .6, StopWhen.Collision)); //Hits wall
+        addSequential(new DriveAtAngle(0, 1, StopWhen.Collision)); //Hits wall
         addSequential(new DriveStraight(.3, true, true)); //Back up a bit
 
         double angleMult;

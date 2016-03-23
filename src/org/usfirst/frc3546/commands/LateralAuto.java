@@ -16,7 +16,7 @@ public class LateralAuto extends CommandGroup {
      */
     public LateralAuto(int numStations){
         if (numStations != 0) {
-            addSequential(new DriveStraight(.5, false, true));
+            addSequential(new DriveStraight(.7, false, true));
             addSequential(new WaitCommand(.5));
 
             double angle;
@@ -27,7 +27,7 @@ public class LateralAuto extends CommandGroup {
             }
 
             addSequential(new DriveAtAngle(angle));
-            addSequential(new DriveAtAngle(angle, .4, 1.1 * Math.abs(numStations)));
+            addSequential(new DriveAtAngle(angle, .4, 1.5 * Math.abs(numStations)));
             addSequential(new DriveAtAngle(0));
         }
     }
