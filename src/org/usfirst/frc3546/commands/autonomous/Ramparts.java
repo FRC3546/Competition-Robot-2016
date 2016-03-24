@@ -13,9 +13,9 @@ import org.usfirst.frc3546.commands.DropBall;
 public class Ramparts extends CommandGroup {
     public Ramparts(boolean drop_ball, boolean back_over, StopWhen stopWhen){
         addSequential(new DriveOverDefense(false));
-        addSequential(new DriveStraight(.8, false, false));
-        addParallel(new WaitCommand(1));
-        if (drop_ball) addSequential(new DropBall(true));
+        addSequential(new DriveStraight(1.2, false, false));
+        addParallel(new WaitCommand(2));
+        if (drop_ball) addParallel(new DropBall(true));
         if (stopWhen == StopWhen.Collision) {
             addSequential(new DriveStraight(false, true, StopWhen.Collision));
         } else if (stopWhen == StopWhen.NotLevel){
@@ -23,7 +23,8 @@ public class Ramparts extends CommandGroup {
         } else {
             if (back_over) {
                 addSequential(new DriveOverDefense(true, false));
-                addSequential(new DriveStraight(.3, true, false));
+//                addSequential(new DriveStraight(.1, true, false));
+                addSequential(new DriveStraight(true, false, StopWhen.Level));
             }
         }
     }

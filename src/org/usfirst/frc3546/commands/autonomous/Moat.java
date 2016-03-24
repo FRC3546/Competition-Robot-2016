@@ -11,9 +11,9 @@ import org.usfirst.frc3546.commands.*;
 public class Moat extends CommandGroup {
     public Moat(boolean drop_ball, boolean back_over, StopWhen stopWhen){
         addSequential(new DriveOverDefense(false));
-        addSequential(new DriveStraight(.3, false, false));
-        addParallel(new WaitCommand(1));
-        if (drop_ball) addSequential(new DropBall(true));
+        addSequential(new DriveStraight(.8, false, false));
+        addParallel(new WaitCommand(3));
+        if (drop_ball) addParallel(new DropBall(true));
         if (stopWhen == StopWhen.Collision) {
             addSequential(new DriveStraight(false, true, StopWhen.Collision));
         } else if (stopWhen == StopWhen.NotLevel){
@@ -21,7 +21,7 @@ public class Moat extends CommandGroup {
         } else {
             if (back_over) {
                 addSequential(new DriveOverDefense(true, false));
-//                addSequential(new DriveStraight(.1, true, false));
+                addSequential(new DriveStraight(.05, true, false));
             }
         }
     }

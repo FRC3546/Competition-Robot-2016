@@ -27,7 +27,7 @@ public class AutonomousSelection {
         burglingChooser.addDefault("Don't Burgle", new DoNothing());
         burglingChooser.addObject("Burgle Before", new BurgleBall());
         burglingChooser.addObject("Set up to Burgle After Auto",
-                new SequentialCommands(new WaitCommand(1.5), new DriveAtAngle(180), new SweeperArmPositionLower())
+                new SequentialCommands(new WaitCommand(1), new DriveAtAngle(180), new SweeperArmPositionLower())
         );
 
         delayChooser = new SendableChooser();
@@ -113,9 +113,12 @@ public class AutonomousSelection {
         if (burgleCommand1 instanceof SequentialCommands) burgleCommand1 = null;
         if (burgleCommand2 instanceof BurgleBall) burgleCommand2 = null;
 
+        Command waitCommand = new DoNothing();
+        if ((Double) delayChooser.getSelected() != 0) waitCommand = new WaitCommand((Double) delayChooser.getSelected());
+
         return new SequentialCommands(
                 burgleCommand1,
-                new WaitCommand((Double) delayChooser.getSelected()),
+                waitCommand,
                 (Command) movementChooser.getSelected(),
                 (Command) primaryChooser.getSelected(),
                 (Command) scoreChooser.getSelected(),
