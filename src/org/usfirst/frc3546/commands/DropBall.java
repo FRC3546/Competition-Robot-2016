@@ -12,9 +12,9 @@ public class DropBall extends CommandGroup {
     public DropBall(boolean arm_is_up){
         if (!arm_is_up) throw new IllegalArgumentException();
         addSequential(new SweeperArmPositionLower());
-        addSequential(new WaitCommand(.9));
-        addSequential(new SweeperBarRotationOut(), 1);
-        addSequential(new WaitCommand(.5));
+        addSequential(new WaitCommand(.2));
+        addParallel(new SweeperBarRotationOut(), 2);
+        addSequential(new WaitCommand(1.5));
         addSequential(new SweeperArmPositionRaise());
     }
 }

@@ -13,9 +13,9 @@ import org.usfirst.frc3546.commands.DropBall;
 public class RockWallRevised extends CommandGroup {
     public RockWallRevised(boolean drop_ball, boolean back_over, StopWhen stopWhen){
         addSequential(new DriveOverDefense(false));
-        addSequential(new DriveStraight(.2, false, false));
+        addSequential(new DriveStraight(.4, false, false));
         addParallel(new WaitCommand(1));
-        if (drop_ball) addSequential(new DropBall(true));
+        if (drop_ball) addParallel(new DropBall(true));
         if (stopWhen == StopWhen.Collision) {
             addSequential(new DriveStraight(false, true, StopWhen.Collision));
         } else if (stopWhen == StopWhen.NotLevel){

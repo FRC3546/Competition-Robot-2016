@@ -9,11 +9,13 @@ import org.usfirst.frc3546.commands.*;
  */
 public class BurgleBall extends CommandGroup {
     public BurgleBall(){
-        addParallel(new DriveStraight(.15, true));
+//        addParallel(new DriveStraight(.6, true));
         addParallel(new SweeperArmPositionLower());
-        addSequential(new SweeperBarRotationIn(), 1);
+        addParallel(new SweeperBarRotationIn(), 2.5);
+        addSequential(new WaitCommand(2));
+        addSequential(new SweeperArmPositionRaise());
         addSequential(new DriveStraight(.5, true));
-        addSequential(new DriveAtAngle(180));
+        addSequential(new DriveAtAngle(-175));
         addSequential(new WaitCommand(.5));
         addSequential(new ZeroYaw());
     }

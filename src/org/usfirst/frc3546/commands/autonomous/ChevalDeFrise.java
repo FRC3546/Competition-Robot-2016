@@ -25,7 +25,7 @@ public class ChevalDeFrise extends CommandGroup {
         addSequential(new DriveStraight(false, true, StopWhen.Level));
 
         addSequential(new WaitCommand(.5));
-        if (drop_ball) addSequential(new DropBall(true));
+        if (drop_ball) addParallel(new DropBall(true));
 
         if (stopWhen == StopWhen.Collision) {
             addSequential(new DriveStraight(false, true, StopWhen.Collision));

@@ -92,7 +92,7 @@ public class DriveAtAngle extends Command implements PIDOutput, PIDSource {
         }
 
         if (stopWhen == StopWhen.YawAngle){
-            return Math.abs(Robot.gyro.getGyroSensorAngle() - turnController.getSetpoint()) < ANGLE_TOLERANCE;
+            return Math.abs(Robot.gyro.getGyroSensorAngle() - turnController.getSetpoint()) % 360 < ANGLE_TOLERANCE;
         } else if (stopWhen == StopWhen.Collision) {
             return checkJerk();
         } else if (stopWhen == StopWhen.NotLevel) {
