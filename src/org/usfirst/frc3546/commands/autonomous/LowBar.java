@@ -13,16 +13,18 @@ public class LowBar extends CommandGroup {
     public LowBar(boolean drop_ball, boolean back_over, StopWhen stopWhen){
         addSequential(new SweeperArmPositionLower());
         addSequential(new DriveOverDefense(false));
-        addSequential(new DriveStraight(1.2, false, false));
+        addSequential(new DriveStraight(.5, false, false));
         if (drop_ball) addParallel(new SweeperBarRotationOut(), 2);
         if (stopWhen == StopWhen.Collision) {
             addSequential(new DriveStraight(false, true, StopWhen.Collision));
         } else if (stopWhen == StopWhen.NotLevel){
             addSequential(new DriveStraight(false, true, StopWhen.NotLevel));
         } else {
-            addSequential(new WaitCommand(1));
-            addSequential(new DriveOverDefense(true, true));
-            addSequential(new DriveStraight(1.5, true, false));
+            if (back_over) {
+                addSequential(new WaitCommand(1));
+                addSequential(new DriveOverDefense(true, true));
+                addSequential(new DriveStraight(1.5, true, false));
+            }
         }
     }
 

@@ -14,15 +14,11 @@ public class Portcullis extends CommandGroup {
         addSequential(new DriveStraight(false, true, StopWhen.Collision));
         addParallel(new SweeperArmPositionRaise());
         addSequential(new DriveStraight(1.2, false, false));
-        if (drop_ball) addParallel(new SweeperBarRotationOut(), 2);
+        if (drop_ball) addParallel(new DropBall(true));
         if (stopWhen == StopWhen.Collision) {
             addSequential(new DriveStraight(false, true, StopWhen.Collision));
         } else if (stopWhen == StopWhen.NotLevel){
             addSequential(new DriveStraight(false, true, StopWhen.NotLevel));
-        } else {
-            addSequential(new WaitCommand(1));
-            addSequential(new DriveOverDefense(true, true));
-            addSequential(new DriveStraight(1.5, true, false));
         }
     }
 

@@ -63,7 +63,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Lateral 1", new LateralAuto(1));
         SmartDashboard.putData("Lateral 2", new LateralAuto(2));
         SmartDashboard.putData("Lateral -1", new LateralAuto(-1));
-        SmartDashboard.putData("Score Low", new ScoreLow(true));
+        SmartDashboard.putData("Score Low", new ScoreLow(true, false));
         SmartDashboard.putData("Score Low From Corner", new ScoreLowFromWall(-10));
         SmartDashboard.putData("Print Pitch", new PrintGryo());
         SmartDashboard.putData("Reset Gyro", new ZeroYaw());
