@@ -3,19 +3,25 @@ package org.usfirst.frc3546.commands.autonomous;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc3546.StopWhen;
-import org.usfirst.frc3546.commands.DriveAtAngle;
-import org.usfirst.frc3546.commands.DriveStraight;
-import org.usfirst.frc3546.commands.SweeperArmPositionLower;
-import org.usfirst.frc3546.commands.SweeperBarRotationOut;
+import org.usfirst.frc3546.commands.*;
 
 /**
  * Created by Owner on 3/5/2016.
  */
 public class ScoreLow extends CommandGroup {
-    public ScoreLow(boolean onTowerLeft){
-        addSequential(new DriveAtAngle(0)); //Drive towards wall
-        addSequential(new DriveAtAngle(0, 1, StopWhen.Collision)); //Hits wall
-        addSequential(new DriveStraight(.3, true, true)); //Back up a bit
+    public ScoreLow(boolean onTowerLeft, boolean slight_angle){
+        addParallel(new SweeperArmPositionRaise());
+        int angle = 0;
+        if (slight_angle){
+            if (onTowerLeft) {
+                angle = 7;
+            } else {
+                angle = 4;
+            }
+        }
+        addSequential(new DriveAtAngle(angle)); //Drive towards wall
+        addSequential(new DriveAtAngle(angle, .75, StopWhen.Collision)); //Hits wall
+        addSequential(new DriveStraight(.2, true, true)); //Back up a bit
 
         double angleMult;
         if (onTowerLeft) {
@@ -25,6 +31,10 @@ public class ScoreLow extends CommandGroup {
         }
 
         addSequential(new DriveAtAngle(angleMult * 90)); //Spin
-        addSequential(new ScoreLowFromWall(angleMult * 80)); //Score
+        if (onTowerLeft) {
+            addSequential(new ScoreLowFromWall(angleMult * 80));
+        } else {
+            addSequential(new ScoreLowFromWall(angleMult * 75));
+        }
     }
 }

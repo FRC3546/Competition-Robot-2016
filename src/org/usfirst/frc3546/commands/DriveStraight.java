@@ -13,7 +13,7 @@ public class DriveStraight extends Command {
     public static final double EMERGENCY_TIMEOUT = 6;
     public static final int TIMES_AT_TARGET_NEEDED = 10;
     public static final double CHEVAL_ANGLE_THRESHOLD = 15;
-    public static final double JERK_THRESHOLD = 1.3;
+    public static final double JERK_THRESHOLD = .9;
 
     private int times_at_target = 0;
 

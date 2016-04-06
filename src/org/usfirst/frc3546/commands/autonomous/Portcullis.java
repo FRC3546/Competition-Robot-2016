@@ -19,10 +19,6 @@ public class Portcullis extends CommandGroup {
             addSequential(new DriveStraight(false, true, StopWhen.Collision));
         } else if (stopWhen == StopWhen.NotLevel){
             addSequential(new DriveStraight(false, true, StopWhen.NotLevel));
-        } else {
-            addSequential(new WaitCommand(1));
-            addSequential(new DriveOverDefense(true, true));
-            addSequential(new DriveStraight(1.5, true, false));
         }
     }
 

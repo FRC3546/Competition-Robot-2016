@@ -12,7 +12,6 @@
 package org.usfirst.frc3546;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import jdk.nashorn.internal.scripts.JO;
 import org.usfirst.frc3546.commands.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
