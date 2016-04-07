@@ -25,7 +25,8 @@ public class AutonomousSelection {
     public AutonomousSelection(){
         burglingChooser = new SendableChooser();
         burglingChooser.addDefault("Don't Burgle", new DoNothing());
-        burglingChooser.addObject("Burgle Before", new BurgleBall());
+        burglingChooser.addObject("Burgle Before", new BurgleBall(true));
+        burglingChooser.addObject("Burgle Before (don't turn around)", new BurgleBall(false));
         burglingChooser.addObject("Set up to Burgle After Auto", new BurgleAfter(180));
         burglingChooser.addObject("Set up to Burgle After Auto (Point Left a bit)", new BurgleAfter(-135));
         burglingChooser.addObject("Set up to Burgle After Auto (Point Right a bit)", new BurgleAfter(135));
