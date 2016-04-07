@@ -70,6 +70,11 @@ public class AutonomousSelection {
         primaryChooser.addObject("Ramparts - Keep Ball, Stay", new Ramparts(false, false));
         primaryChooser.addObject("Category D - Keep Ball, Stay", new RockWallRevised(false, false));
 
+        primaryChooser.addObject("Low Bar (in reverse) - Keep Ball, Stay", new LowBar(false, false, true));
+        primaryChooser.addObject("Moat (in reverse) - Keep Ball, Stay", new Moat(false, false, true, null));
+        primaryChooser.addObject("Ramparts (in reverse) - Keep Ball, Stay", new Ramparts(false, false, true, null));
+        primaryChooser.addObject("Category D (in reverse) - Keep Ball, Stay", new RockWallRevised(false, false, true, null));
+
         primaryChooser.addObject("Cheval De Frise - Drop Ball, Stay", new ChevalDeFrise(true));
         primaryChooser.addObject("Portcullis - Drop Ball, Stay", new Portcullis(true));
 
