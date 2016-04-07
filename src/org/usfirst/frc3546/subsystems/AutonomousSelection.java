@@ -97,19 +97,19 @@ public class AutonomousSelection {
 
         scoreChooser = new SendableChooser();
         scoreChooser.addDefault("Don't Score", new DoNothing());
-        scoreChooser.addObject("Defense 1", new ScoreLow(true, true, false));
-        scoreChooser.addObject("Defense 2", new ScoreLow(true, false, false));
-        scoreChooser.addObject("Defense 3 (go left)", new SequentialBiCommand(new LateralAuto(-1), new ScoreLow(true, false, false)));
-        scoreChooser.addObject("Defense 3 (go right)", new SequentialBiCommand(new LateralAuto(2), new ScoreLow(true, false, false)));
-        scoreChooser.addObject("Defense 4", new SequentialBiCommand(new LateralAuto(1), new ScoreLow(true, false, false)));
-        scoreChooser.addObject("Defense 5", new ScoreLow(false, true, false));
+        scoreChooser.addObject("Defense 1", new ScoreLow(DefenseSlot.LowBar, false));
+        scoreChooser.addObject("Defense 2", new ScoreLow(DefenseSlot.Two, false));
+        scoreChooser.addObject("Defense 3 (go left)", new ScoreLow(DefenseSlot.ThreeLeft, false));
+        scoreChooser.addObject("Defense 3 (go right)", new ScoreLow(DefenseSlot.ThreeRight, false));
+        scoreChooser.addObject("Defense 4", new ScoreLow(DefenseSlot.Four, false));
+        scoreChooser.addObject("Defense 5", new ScoreLow(DefenseSlot.Five, false));
 
-        scoreChooser.addObject("Defense 1 (in reverse)", new ScoreLow(true, true, false));
-        scoreChooser.addObject("Defense 2 (in reverse)", new ScoreLow(true, false, false));
-        scoreChooser.addObject("Defense 3 (in reverse) (go left)", new SequentialBiCommand(new LateralAuto(-1), new ScoreLow(true, false, false)));
-        scoreChooser.addObject("Defense 3 (in reverse) (go right)", new SequentialBiCommand(new LateralAuto(2), new ScoreLow(true, false, false)));
-        scoreChooser.addObject("Defense 4 (in reverse)", new SequentialBiCommand(new LateralAuto(1), new ScoreLow(true, false, false)));
-        scoreChooser.addObject("Defense 5 (in reverse)", new ScoreLow(false, true, false));
+        scoreChooser.addObject("Defense 1 (in reverse)", new ScoreLow(DefenseSlot.LowBar, true));
+        scoreChooser.addObject("Defense 2 (in reverse)", new ScoreLow(DefenseSlot.Two, true));
+        scoreChooser.addObject("Defense 3 (in reverse) (go left)", new ScoreLow(DefenseSlot.ThreeLeft, true));
+        scoreChooser.addObject("Defense 3 (in reverse) (go right)", new ScoreLow(DefenseSlot.ThreeRight, true));
+        scoreChooser.addObject("Defense 4 (in reverse)", new ScoreLow(DefenseSlot.Four, true));
+        scoreChooser.addObject("Defense 5 (in reverse)", new ScoreLow(DefenseSlot.Five, true));
 
         SmartDashboard.putData("Autonomous Lateral Movement Chooser", movementChooser);
         SmartDashboard.putData("Autonomous Mode Chooser", primaryChooser);
