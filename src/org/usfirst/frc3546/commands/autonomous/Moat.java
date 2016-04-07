@@ -9,19 +9,24 @@ import org.usfirst.frc3546.commands.*;
  * Created by Owner on 2/27/2016.
  */
 public class Moat extends CommandGroup {
-    public Moat(boolean drop_ball, boolean back_over, StopWhen stopWhen){
-        addSequential(new DriveOverDefense(false));
-        addSequential(new DriveStraight(.8, false, false));
+    public Moat(boolean drop_ball, boolean back_over, boolean inReverse, StopWhen stopWhen){
+        //In reverse assumes the robot is already oriented correctly relative to the defense
+        addSequential(new DriveOverDefense(inReverse));
+        addSequential(new DriveStraight(.8, inReverse, false));
         if (drop_ball || back_over) addParallel(new WaitCommand(3));
         if (drop_ball) addParallel(new DropBall(true));
         if (stopWhen == StopWhen.Collision) {
-            addSequential(new DriveStraight(false, true, StopWhen.Collision));
+            addSequential(new DriveStraight(inReverse, true, StopWhen.Collision));
         } else {
             if (back_over) {
-                addSequential(new DriveOverDefense(true, false));
-                addSequential(new DriveStraight(.05, true, false));
+                addSequential(new DriveOverDefense(!inReverse, false));
+                addSequential(new DriveStraight(.05, !inReverse, false));
             }
         }
+    }
+
+    public Moat(boolean drop_ball, boolean back_over, StopWhen stopWhen){
+        this(drop_ball, back_over, false, stopWhen);
     }
 
     public Moat(boolean drop_ball, boolean back_over){

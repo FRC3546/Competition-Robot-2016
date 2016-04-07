@@ -11,25 +11,30 @@ import org.usfirst.frc3546.commands.DropBall;
  * Created by Owner on 2/27/2016.
  */
 public class RockWallRevised extends CommandGroup {
-    public RockWallRevised(boolean drop_ball, boolean back_over, StopWhen stopWhen){
-        addSequential(new DriveOverDefense(false));
-        addSequential(new DriveStraight(.4, false, false));
+    public RockWallRevised(boolean drop_ball, boolean back_over, boolean inReverse, StopWhen stopWhen){
+        //In reverse assumes the robot is already oriented correctly relative to the defense
+        addSequential(new DriveOverDefense(inReverse));
+        addSequential(new DriveStraight(.4, inReverse, false));
         if (drop_ball || back_over) addParallel(new WaitCommand(1));
         if (drop_ball) addParallel(new DropBall(true));
         if (stopWhen == StopWhen.Collision) {
-            addSequential(new DriveStraight(false, true, StopWhen.Collision));
+            addSequential(new DriveStraight(inReverse, true, StopWhen.Collision));
         } else {
             if (back_over) {
-                addSequential(new DriveOverDefense(true, false));
+                addSequential(new DriveOverDefense(!inReverse, false));
             }
         }
     }
 
+    public RockWallRevised(boolean drop_ball, boolean back_over, StopWhen stopWhen){
+        this(drop_ball, back_over, false, stopWhen);
+    }
+
     public RockWallRevised(boolean drop_ball, boolean back_over){
-            this(drop_ball, back_over, null);
+        this(drop_ball, back_over, null);
     }
 
     public RockWallRevised(boolean drop_ball){
-            this(drop_ball, true);
+        this(drop_ball, true);
     }
 }
