@@ -93,8 +93,9 @@ public class AutonomousSelection {
         scoreChooser.addDefault("Don't Score", new DoNothing());
         scoreChooser.addObject("Defense 1", new ScoreLow(true, true));
         scoreChooser.addObject("Defense 2", new ScoreLow(true, false));
-        scoreChooser.addObject("Defense 3", new SequentialBiCommand(new LateralAuto(-1), new ScoreLow(true, false)));
-        scoreChooser.addObject("Defense 4", new SequentialBiCommand(new LateralAuto(-2), new ScoreLow(true, false)));
+        scoreChooser.addObject("Defense 3 (go left)", new SequentialBiCommand(new LateralAuto(-1), new ScoreLow(true, false)));
+        scoreChooser.addObject("Defense 3 (go right)", new SequentialBiCommand(new LateralAuto(2), new ScoreLow(true, false)));
+        scoreChooser.addObject("Defense 4", new SequentialBiCommand(new LateralAuto(1), new ScoreLow(true, false)));
         scoreChooser.addObject("Defense 5", new ScoreLow(false, true));
 
         SmartDashboard.putData("Autonomous Lateral Movement Chooser", movementChooser);
