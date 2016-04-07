@@ -17,8 +17,6 @@ public class Portcullis extends CommandGroup {
         if (drop_ball) addParallel(new DropBall(true));
         if (stopWhen == StopWhen.Collision) {
             addSequential(new DriveStraight(false, true, StopWhen.Collision));
-        } else if (stopWhen == StopWhen.NotLevel){
-            addSequential(new DriveStraight(false, true, StopWhen.NotLevel));
         }
     }
 

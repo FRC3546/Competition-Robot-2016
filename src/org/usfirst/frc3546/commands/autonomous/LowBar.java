@@ -17,8 +17,6 @@ public class LowBar extends CommandGroup {
         if (drop_ball) addParallel(new SweeperBarRotationOut(), 2);
         if (stopWhen == StopWhen.Collision) {
             addSequential(new DriveStraight(false, true, StopWhen.Collision));
-        } else if (stopWhen == StopWhen.NotLevel){
-            addSequential(new DriveStraight(false, true, StopWhen.NotLevel));
         } else {
             if (back_over) {
                 addSequential(new WaitCommand(1));
