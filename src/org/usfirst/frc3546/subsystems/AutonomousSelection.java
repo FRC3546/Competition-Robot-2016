@@ -26,9 +26,9 @@ public class AutonomousSelection {
         burglingChooser = new SendableChooser();
         burglingChooser.addDefault("Don't Burgle", new DoNothing());
         burglingChooser.addObject("Burgle Before", new BurgleBall());
-        burglingChooser.addObject("Set up to Burgle After Auto",
-                new SequentialCommands(new WaitCommand(1), new DriveAtAngle(180), new SweeperArmPositionLower())
-        );
+        burglingChooser.addObject("Set up to Burgle After Auto", new BurgleAfter(180));
+        burglingChooser.addObject("Set up to Burgle After Auto (Point Left a bit)", new BurgleAfter(-135));
+        burglingChooser.addObject("Set up to Burgle After Auto (Point Right a bit)", new BurgleAfter(135));
 
         delayChooser = new SendableChooser();
         delayChooser.addDefault("0 Seconds", 0.0);
