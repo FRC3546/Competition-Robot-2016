@@ -112,7 +112,7 @@ public class AutonomousSelection {
         if (burglingChooser.getSelected() instanceof DoNothing) burgleCommand1 = burgleCommand2 = null;
         else burgleCommand1 = burgleCommand2 = (Command) burglingChooser.getSelected();
 
-        if (burgleCommand1 instanceof SequentialCommands) burgleCommand1 = null;
+        if (burgleCommand1 instanceof BurgleAfter) burgleCommand1 = null;
         if (burgleCommand2 instanceof BurgleBall) burgleCommand2 = null;
 
         Command waitCommand = new DoNothing();
