@@ -176,13 +176,15 @@ public class Gyro extends Subsystem {
     }
 
     public void zeroYawTo180(){
-        float initial_offset = gyro_board.getYaw() + 180;
-        if (initial_offset > 180){
-            //Shift from 0..360 to -180..180 system
-            initial_offset = initial_offset - 360;
-        }
+        initial_offset = convertToNegPos180(gyro_board.getYaw() + 180);
+    }
 
-        this.initial_offset = initial_offset;
+    public static float convertToNegPos180(float zeroTo360Angle){
+        if (zeroTo360Angle > 180){
+            return zeroTo360Angle - 180;
+        } else {
+            return  zeroTo360Angle;
+        }
     }
 }
 

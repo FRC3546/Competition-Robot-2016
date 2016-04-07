@@ -35,14 +35,14 @@ public class AutonomousSelection {
         delayChooser.addDefault("0 Seconds", 0.0);
         delayChooser.addObject("1 Second", 1.0);
         delayChooser.addObject("2 Seconds", 2.0);
-        delayChooser.addObject("3 Seconds", 3.0);
-        delayChooser.addObject("4 Seconds", 4.0);
+        delayChooser.addObject("3 Seconds", 2.5);
+//        delayChooser.addObject("4 Seconds", 4.0);
         delayChooser.addObject("5 Seconds", 5.0);
-        delayChooser.addObject("6 Seconds", 6.0);
-        delayChooser.addObject("7 Seconds", 7.0);
-        delayChooser.addObject("8 Seconds", 8.0);
-        delayChooser.addObject("9 Seconds", 9.0);
-        delayChooser.addObject("10 Seconds", 10.0);
+//        delayChooser.addObject("6 Seconds", 6.0);
+//        delayChooser.addObject("7 Seconds", 7.0);
+//        delayChooser.addObject("8 Seconds", 8.0);
+//        delayChooser.addObject("9 Seconds", 9.0);
+//        delayChooser.addObject("10 Seconds", 10.0);
 
         movementChooser = new SendableChooser();
         movementChooser.addDefault("No Lateral Movement", new DoNothing());
@@ -79,12 +79,12 @@ public class AutonomousSelection {
         primaryChooser.addObject("Cheval De Frise - Drop Ball, Stay", new ChevalDeFrise(true));
         primaryChooser.addObject("Portcullis - Drop Ball, Stay", new Portcullis(true));
 
-        primaryChooser.addObject("Low Bar - Keep Ball, Get out of way (collision)", new LowBar(false, false, StopWhen.Collision));
-        primaryChooser.addObject("Cheval De Frise - Keep Ball, Get out of way (collision)", new ChevalDeFrise(false, StopWhen.Collision));
-        primaryChooser.addObject("Portcullis - Keep Ball, Get out of way (collision)", new Portcullis(false, StopWhen.Collision));
-        primaryChooser.addObject("Moat - Keep Ball, Get out of way (collision)", new Moat(false, false, StopWhen.Collision));
-        primaryChooser.addObject("Ramparts - Keep Ball, Get out of way (collision)", new Ramparts(false, false, StopWhen.Collision));
-        primaryChooser.addObject("Category D - Keep Ball, Get out of way (collision)", new RockWallRevised(false, false, StopWhen.Collision));
+//        primaryChooser.addObject("Low Bar - Keep Ball, Get out of way (collision)", new LowBar(false, false, StopWhen.Collision));
+//        primaryChooser.addObject("Cheval De Frise - Keep Ball, Get out of way (collision)", new ChevalDeFrise(false, StopWhen.Collision));
+//        primaryChooser.addObject("Portcullis - Keep Ball, Get out of way (collision)", new Portcullis(false, StopWhen.Collision));
+//        primaryChooser.addObject("Moat - Keep Ball, Get out of way (collision)", new Moat(false, false, StopWhen.Collision));
+//        primaryChooser.addObject("Ramparts - Keep Ball, Get out of way (collision)", new Ramparts(false, false, StopWhen.Collision));
+//        primaryChooser.addObject("Category D - Keep Ball, Get out of way (collision)", new RockWallRevised(false, false, StopWhen.Collision));
 
 //        primaryChooser.addObject("Low Bar - Keep Ball, Get out of way (On Ramp)", new LowBar(false, false, StopWhen.NotLevel));
 //        primaryChooser.addObject("Cheval De Frise - Keep Ball, Get out of way (On Ramp)", new ChevalDeFrise(false, StopWhen.NotLevel));
@@ -97,12 +97,19 @@ public class AutonomousSelection {
 
         scoreChooser = new SendableChooser();
         scoreChooser.addDefault("Don't Score", new DoNothing());
-        scoreChooser.addObject("Defense 1", new ScoreLow(true, true));
-        scoreChooser.addObject("Defense 2", new ScoreLow(true, false));
-        scoreChooser.addObject("Defense 3 (go left)", new SequentialBiCommand(new LateralAuto(-1), new ScoreLow(true, false)));
-        scoreChooser.addObject("Defense 3 (go right)", new SequentialBiCommand(new LateralAuto(2), new ScoreLow(true, false)));
-        scoreChooser.addObject("Defense 4", new SequentialBiCommand(new LateralAuto(1), new ScoreLow(true, false)));
-        scoreChooser.addObject("Defense 5", new ScoreLow(false, true));
+        scoreChooser.addObject("Defense 1", new ScoreLow(true, true, false));
+        scoreChooser.addObject("Defense 2", new ScoreLow(true, false, false));
+        scoreChooser.addObject("Defense 3 (go left)", new SequentialBiCommand(new LateralAuto(-1), new ScoreLow(true, false, false)));
+        scoreChooser.addObject("Defense 3 (go right)", new SequentialBiCommand(new LateralAuto(2), new ScoreLow(true, false, false)));
+        scoreChooser.addObject("Defense 4", new SequentialBiCommand(new LateralAuto(1), new ScoreLow(true, false, false)));
+        scoreChooser.addObject("Defense 5", new ScoreLow(false, true, false));
+
+        scoreChooser.addObject("Defense 1 (in reverse)", new ScoreLow(true, true, false));
+        scoreChooser.addObject("Defense 2 (in reverse)", new ScoreLow(true, false, false));
+        scoreChooser.addObject("Defense 3 (in reverse) (go left)", new SequentialBiCommand(new LateralAuto(-1), new ScoreLow(true, false, false)));
+        scoreChooser.addObject("Defense 3 (in reverse) (go right)", new SequentialBiCommand(new LateralAuto(2), new ScoreLow(true, false, false)));
+        scoreChooser.addObject("Defense 4 (in reverse)", new SequentialBiCommand(new LateralAuto(1), new ScoreLow(true, false, false)));
+        scoreChooser.addObject("Defense 5 (in reverse)", new ScoreLow(false, true, false));
 
         SmartDashboard.putData("Autonomous Lateral Movement Chooser", movementChooser);
         SmartDashboard.putData("Autonomous Mode Chooser", primaryChooser);
