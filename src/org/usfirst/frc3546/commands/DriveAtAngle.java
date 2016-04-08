@@ -26,7 +26,7 @@ public class DriveAtAngle extends Command implements PIDOutput, PIDSource {
     public static final double ANGLE_TOLERANCE = 5;
     public static final double EMERGENCY_TIMEOUT = 6;
 
-    public static final double JERK_THRESHOLD = 1.3;
+    public static final double JERK_THRESHOLD = .9;
 
     private PIDController turnController;
     private double rotateRate;
@@ -104,7 +104,7 @@ public class DriveAtAngle extends Command implements PIDOutput, PIDSource {
 
     private boolean checkJerk(){
         double jerk = Robot.gyro.getJerk();
-        if (jerk > JERK_THRESHOLD && timeSinceInitialized() > .6){
+        if (jerk > JERK_THRESHOLD && timeSinceInitialized() > 1.5){
             System.out.println("Robot collided with something");
             return true;
         }

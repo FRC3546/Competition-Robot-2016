@@ -12,16 +12,16 @@ import org.usfirst.frc3546.commands.*;
 public class ChevalDeFrise extends CommandGroup {
     public ChevalDeFrise(boolean drop_ball, StopWhen stopWhen){
 
-        addSequential(new DriveStraight(.5, false, true, StopWhen.NotLevel));
+        addSequential(new DriveStraight(1.9, false));
 //        addParallel(new DriveStraight(.2, false, false));
         addSequential(new WaitCommand(.075));
         addSequential(new SweeperArmPositionLower());
         addSequential(new WaitCommand(.7));
 
         addSequential(new DriveStraight(false, true, StopWhen.ChevalAngle));
-        addSequential(new WaitCommand(.3));
+        addParallel(new SequentialBiCommand(new WaitCommand(.3), new SweeperArmPositionRaise()));
 
-        addParallel(new SequentialBiCommand(new WaitCommand(.5), new SweeperArmPositionRaise()));
+        addSequential(new WaitCommand(.4));
         addSequential(new DriveStraight(false, true, StopWhen.Level));
 
         addSequential(new WaitCommand(.5));

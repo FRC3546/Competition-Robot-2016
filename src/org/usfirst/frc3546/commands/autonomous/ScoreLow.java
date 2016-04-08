@@ -18,8 +18,7 @@ public class ScoreLow extends CommandGroup {
         double intermediate_time = 0;
         switch (crossed_defense){
             case ThreeLeft: intermediate_angle = 0; intermediate_time = 0; break;
-            case ThreeRight: intermediate_angle = 0; intermediate_time = 0; break;
-            case Four: intermediate_angle = 0; intermediate_time = 0; break;
+            case ThreeRight: intermediate_angle = 70; intermediate_time = 2.0; break;
         }
 
         float final_angle = 0;
@@ -27,7 +26,7 @@ public class ScoreLow extends CommandGroup {
             case LowBar: final_angle = 7; break;
             case Two: final_angle = 0; break;
             case ThreeLeft: final_angle = -25; break;
-            case ThreeRight: final_angle = 38; break;
+            case ThreeRight: final_angle = 20; break;
             case Four: final_angle = 20; break;
             case Five:final_angle = 4; break;
         }
@@ -39,15 +38,12 @@ public class ScoreLow extends CommandGroup {
             driveTrainPower = -driveTrainPower;
         }
 
-        if (crossed_defense == DefenseSlot.ThreeLeft
-                || crossed_defense == DefenseSlot.ThreeRight
-                || crossed_defense == DefenseSlot.Four) {
-            //TODO: Enable me if intermediate angle is necessary and set the above conditions
-//            addSequential(new DriveAtAngle(intermediate_angle, driveTrainPower, intermediate_time));
+        if (crossed_defense == DefenseSlot.ThreeRight) {
+            addSequential(new DriveAtAngle(intermediate_angle, driveTrainPower / 2, intermediate_time));
         }
 
         addSequential(new DriveAtAngle(final_angle, driveTrainPower, StopWhen.Collision)); //Drives and and hits wall
-        addSequential(new DriveStraight(.2, !startInReverse, true)); //Back up a bit
+        addSequential(new DriveStraight(.4, !startInReverse, true)); //Back up a bit
 
         //Now we're at the wall. Score the goal
         boolean onTowerLeft = false;
@@ -67,7 +63,7 @@ public class ScoreLow extends CommandGroup {
         if (onTowerLeft) {
             addSequential(new ScoreLowFromWall(angleMult * 80));
         } else {
-            addSequential(new ScoreLowFromWall(angleMult * 75));
+            addSequential(new ScoreLowFromWall(angleMult * 70));
         }
     }
 }
