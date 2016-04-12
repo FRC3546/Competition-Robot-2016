@@ -181,7 +181,7 @@ public class Gyro extends Subsystem {
 
     public static float convertToNegPos180(float zeroTo360Angle){
         if (zeroTo360Angle > 180){
-            return zeroTo360Angle - 180;
+            return zeroTo360Angle - 360;
         } else {
             return  zeroTo360Angle;
         }
