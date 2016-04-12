@@ -6,10 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc3546.SequentialBiCommand;
 import org.usfirst.frc3546.StopWhen;
-import org.usfirst.frc3546.commands.DriveAtAngle;
-import org.usfirst.frc3546.commands.LateralAuto;
-import org.usfirst.frc3546.commands.SequentialCommands;
-import org.usfirst.frc3546.commands.SweeperArmPositionLower;
+import org.usfirst.frc3546.commands.*;
 import org.usfirst.frc3546.commands.autonomous.*;
 
 /**
@@ -27,6 +24,7 @@ public class AutonomousSelection {
         burglingChooser.addDefault("Don't Burgle", new DoNothing());
         burglingChooser.addObject("Burgle Before", new BurgleBall(true));
         burglingChooser.addObject("Burgle Before (don't turn around)", new BurgleBall(false));
+        burglingChooser.addObject("Burgle Before (from secret passage)", new BurgleSecretPassage());
         burglingChooser.addObject("Set up to Burgle After Auto", new BurgleAfter(180));
         burglingChooser.addObject("Set up to Burgle After Auto (Point Left a bit)", new BurgleAfter(-135));
         burglingChooser.addObject("Set up to Burgle After Auto (Point Right a bit)", new BurgleAfter(135));
@@ -128,7 +126,7 @@ public class AutonomousSelection {
         else burgleCommand1 = burgleCommand2 = (Command) burglingChooser.getSelected();
 
         if (burgleCommand1 instanceof BurgleAfter) burgleCommand1 = null;
-        if (burgleCommand2 instanceof BurgleBall) burgleCommand2 = null;
+        if (burgleCommand2 instanceof BurgleBall || burgleCommand2 instanceof BurgleSecretPassage) burgleCommand2 = null;
 
         Command waitCommand = new DoNothing();
         if ((Double) delayChooser.getSelected() != 0) waitCommand = new WaitCommand((Double) delayChooser.getSelected());
