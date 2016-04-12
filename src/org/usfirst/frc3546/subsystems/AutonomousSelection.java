@@ -111,6 +111,8 @@ public class AutonomousSelection {
         scoreChooser.addObject("Defense 4 (in reverse)", new ScoreLow(DefenseSlot.Four, true));
         scoreChooser.addObject("Defense 5 (in reverse)", new ScoreLow(DefenseSlot.Five, true));
 
+        scoreChooser.addObject("Score Low from spy bot", new ScoreLowFromWall(80));
+
         SmartDashboard.putData("Autonomous Lateral Movement Chooser", movementChooser);
         SmartDashboard.putData("Autonomous Mode Chooser", primaryChooser);
         SmartDashboard.putData("Autonomous Delay Chooser", delayChooser);
