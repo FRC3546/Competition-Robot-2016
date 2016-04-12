@@ -16,15 +16,15 @@ public class ChevalDeFrise extends CommandGroup {
 //        addParallel(new DriveStraight(.2, false, false));
         addSequential(new WaitCommand(.075));
         addSequential(new SweeperArmPositionLower());
-        addSequential(new WaitCommand(.7));
+        addSequential(new WaitCommand(.6));
 
         addSequential(new DriveStraight(false, true, StopWhen.ChevalAngle));
-        addParallel(new SequentialBiCommand(new WaitCommand(.3), new SweeperArmPositionRaise()));
+        addParallel(new SweeperArmPositionRaise());
 
-        addSequential(new WaitCommand(.4));
+//        addSequential(new WaitCommand(.2));
         addSequential(new DriveStraight(false, true, StopWhen.Level));
 
-        addSequential(new WaitCommand(.5));
+        if (drop_ball) addSequential(new WaitCommand(.5));
         if (drop_ball) addParallel(new DropBall(true));
 
         if (stopWhen == StopWhen.Collision) {
