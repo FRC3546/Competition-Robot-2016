@@ -20,7 +20,7 @@ public class Moat extends CommandGroup {
         } else {
             if (back_over) {
                 addSequential(new DriveOverDefense(!inReverse, false));
-                addSequential(new DriveStraight(.05, !inReverse, false));
+//                addSequential(new DriveStraight(.05, !inReverse, false));
             }
         }
     }
