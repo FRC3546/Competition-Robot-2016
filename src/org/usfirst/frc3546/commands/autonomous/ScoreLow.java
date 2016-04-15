@@ -1,7 +1,7 @@
 package org.usfirst.frc3546.commands.autonomous;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
+import edu.wpi.first.wpilibj.command.*;
+import edu.wpi.first.wpilibj.command.PrintCommand;
 import org.usfirst.frc3546.StopWhen;
 import org.usfirst.frc3546.commands.*;
 import org.usfirst.frc3546.subsystems.Gyro;
@@ -17,8 +17,8 @@ public class ScoreLow extends CommandGroup {
         float intermediate_angle = 0;
         double intermediate_time = 0;
         switch (crossed_defense){
-            case ThreeLeft: intermediate_angle = 0; intermediate_time = 0; break;
-            case ThreeRight: intermediate_angle = 70; intermediate_time = 2.0; break;
+            case ThreeRight: intermediate_angle = 80; intermediate_time = 2.0; break;
+            case Four: intermediate_angle = 70; intermediate_time = 1.0; break;
         }
 
         float final_angle = 0;
@@ -26,8 +26,8 @@ public class ScoreLow extends CommandGroup {
             case LowBar: final_angle = 7; break;
             case Two: final_angle = 0; break;
             case ThreeLeft: final_angle = -25; break;
-            case ThreeRight: final_angle = 20; break;
-            case Four: final_angle = 23; break;
+            case ThreeRight: final_angle = 5; break;
+            case Four: final_angle = 0; break;
             case Five:final_angle = 4; break;
         }
 
@@ -38,7 +38,7 @@ public class ScoreLow extends CommandGroup {
             driveTrainPower = -driveTrainPower;
         }
 
-        if (crossed_defense == DefenseSlot.ThreeRight) {
+        if (crossed_defense == DefenseSlot.ThreeRight || crossed_defense == DefenseSlot.Four) {
             addSequential(new DriveAtAngle(intermediate_angle, driveTrainPower / 2, intermediate_time));
         }
 
@@ -59,11 +59,27 @@ public class ScoreLow extends CommandGroup {
             angleMult = -1;
         }
 
-        addSequential(new DriveAtAngle(angleMult * 90)); //Spin
+
+        double score_angle = 90;
+
         if (onTowerLeft) {
-            addSequential(new ScoreLowFromWall(angleMult * 80));
+            score_angle = 80;
         } else {
-            addSequential(new ScoreLowFromWall(angleMult * 70));
+            if (crossed_defense == DefenseSlot.ThreeRight || crossed_defense == DefenseSlot.Four){
+                score_angle = 60;
+            } else {
+                score_angle = 70;
+            }
         }
+
+        if (crossed_defense == DefenseSlot.ThreeRight || crossed_defense == DefenseSlot.Four){
+//            addSequential(new PrintCommand("Doing " + score_angle));
+            addSequential(new DriveAtAngle(angleMult * score_angle));
+        } else {
+//            addSequential(new PrintCommand("Doing " + 90));
+            addSequential(new DriveAtAngle(angleMult * 90)); //Spin
+        }
+//        addSequential(new PrintCommand("Doing " + score_angle));
+        addSequential(new ScoreLowFromWall(angleMult * score_angle));
     }
 }
