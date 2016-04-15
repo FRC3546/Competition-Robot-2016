@@ -14,16 +14,16 @@ public class ScoreLowFromWall extends CommandGroup {
         addParallel(new SweeperArmPositionLower());
         addParallel(new SequentialCommands(new WaitCommand(.3), new SweeperBarRotationOut()), 7);
         addSequential(new WaitCommand(1.5));
-        addSequential(new DriveStraight(1.5, false, true));
+        addSequential(new DriveStraight(2.25, false, true));
 
         //Ram Again
         addSequential(new WaitCommand(1));
-        addSequential(new DriveStraight(1.5, false, true));
+        addSequential(new DriveStraight(2.25, false, true));
 
         //And again...
         addSequential(new WaitCommand(1));
-        addSequential(new DriveStraight(1.5, false, true));
+        addSequential(new DriveStraight(2.25, false, true));
         addSequential(new WaitCommand(1));
-        addSequential(new DriveStraight(1.5, false, true));
+        addSequential(new DriveStraight(2.25, false, true));
     }
 }

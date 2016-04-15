@@ -27,7 +27,7 @@ public class ScoreLow extends CommandGroup {
             case Two: final_angle = 0; break;
             case ThreeLeft: final_angle = -25; break;
             case ThreeRight: final_angle = 20; break;
-            case Four: final_angle = 20; break;
+            case Four: final_angle = 23; break;
             case Five:final_angle = 4; break;
         }
 
